@@ -44,7 +44,7 @@ const ChatContainer = () => {
     <div className="flex-1 flex flex-col overflow-auto">
       <ChatHeader />
 
-      <div className='flex-1 overflow-y-auto p-4 space-y-4'>
+      <div className='flex-1 overflow-y-auto p-2 sm:p-4 space-y-2 sm:space-y-4'>
         {messages.map((message) => (
           <div
             key={message._id}
@@ -53,7 +53,7 @@ const ChatContainer = () => {
           >
 
             <div className="chat-image avatar">
-              <div className="size-10 rounded-full border-b">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-b">
                 <img
                   src={message.senderId === authUser._id ? authUser.profilePic || '/avatar.png' :
                     selectedUser.profilePic || '/avatar.png'}
@@ -62,27 +62,27 @@ const ChatContainer = () => {
               </div>
             </div>
 
-            <div className="chat-header mb-1 ">
+            <div className="chat-header mb-1 text-xs sm:text-sm">
               <time className="text-xs opacity-50 ml-1">
                 {formatMessageTime(message.createdAt)}
               </time>
             </div>
 
-            <div className="chat-bubble flex flex-col rounded-md">
+            <div className="chat-bubble flex flex-col rounded-md max-w-[80%] sm:max-w-[60%]">
               {message.image && (
                 <img
                   src={message.image}
                   alt="Attachment"
-                  className="max-w-[150px] sm:max-w-[200px] rounded-sm mb-2 mt-2"
+                  className="max-w-[120px] sm:max-w-[200px] rounded-sm mb-1 sm:mb-2 mt-1 sm:mt-2"
                 />
               )}
-              {message.text && <p>{message.text}</p>}
+              {message.text && <p className="text-sm sm:text-base">{message.text}</p>}
             </div>
           </div>
         ))}
       </div>
 
-        <MessageInput />
+      <MessageInput />
 
     </div>
   )
