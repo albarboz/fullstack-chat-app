@@ -58,7 +58,7 @@ const SignupPage = () => {
                 </div>
                 <input
                   type="text"
-                  className={`input input-bordered w-full pl-10 bg-transparent`}
+                  className={`input input-bordered w-full pl-10 bg-transparent text-base focus:outline-none focus:ring-2 focus:ring-primary`}
                   placeholder="John Doe"
                   value={formData.fullName}
                   onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
@@ -75,7 +75,7 @@ const SignupPage = () => {
                 </div>
                 <input
                   type="email"
-                  className={`input input-bordered w-full pl-10 bg-transparent`}
+                  className={`input input-bordered w-full pl-10 bg-transparent text-base focus:outline-none focus:ring-2 focus:ring-primary`}
                   // className='pl-10 input-bordered w-full'
                   placeholder='you@example.com'
                   value={formData.email}
@@ -94,7 +94,7 @@ const SignupPage = () => {
                 </div>
                 <input
                   type={showPassword ? 'text' : 'password'}
-                  className={`input input-bordered w-full pl-10 bg-transparent`}
+                  className={`input input-bordered w-full pl-10 bg-transparent text-base focus:outline-none focus:ring-2 focus:ring-primary`}
                   placeholder='••••••••'
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
@@ -102,7 +102,7 @@ const SignupPage = () => {
                 />
                 <button
                   type='button'
-                  className='absolute inset-y-0 right-0 pr-3 flex items-center'
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center h-full"
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
@@ -116,7 +116,7 @@ const SignupPage = () => {
 
             <button
               type='submit'
-              className='btn btn-primary w-full'
+              className='btn btn-primary w-full py-2'
               disabled={isSigningUp}
             >
               {isSigningUp ? (

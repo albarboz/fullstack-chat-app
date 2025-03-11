@@ -82,7 +82,7 @@ const LoginPage = () => {
                   type="button"
                   className="absolute inset-y-0 right-0 pr-3 flex items-center h-full"
                   // ARIA label improves accessibility by describing the button's function.
-                  aria-label={showPassword ? 'Hide password' : 'Show password'}                >
+                  onClick={() => setShowPassword(!showPassword)}>
                   {showPassword ? (
                     <EyeOff className="w-5 h-5 text-base-content/40" />
                   ) : (
