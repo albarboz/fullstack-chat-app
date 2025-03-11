@@ -53,7 +53,7 @@ const ChatContainer = () => {
           >
 
             <div className="chat-image avatar">
-              <div className="size-10 rounded-full border">
+              <div className="size-10 rounded-full border-b">
                 <img
                   src={message.senderId === authUser._id ? authUser.profilePic || '/avatar.png' :
                     selectedUser.profilePic || '/avatar.png'}
@@ -68,12 +68,12 @@ const ChatContainer = () => {
               </time>
             </div>
 
-            <div className="chat-bubble flex flex-col">
+            <div className="chat-bubble flex flex-col rounded-md">
               {message.image && (
                 <img
                   src={message.image}
                   alt="Attachment"
-                  className="sm:max-w-[200px] rounded-md mb-2"
+                  className="max-w-[150px] sm:max-w-[200px] rounded-sm mb-2 mt-2"
                 />
               )}
               {message.text && <p>{message.text}</p>}
@@ -82,7 +82,7 @@ const ChatContainer = () => {
         ))}
       </div>
 
-      <MessageInput />
+        <MessageInput />
 
     </div>
   )
