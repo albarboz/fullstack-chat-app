@@ -20,9 +20,11 @@ const LoginPage = () => {
 
   return (
     <div className="min-h-screen grid lg:grid-cols-2">
+
       {/* Left side */}
       <div className="flex flex-col justify-center items-center p-6 sm:p-12">
         <div className="w-full max-w-md space-y-8">
+
           {/* LOGO */}
           <div className="text-center mb-8">
             <div className="flex flex-col items-center gap-2 group">
@@ -34,6 +36,8 @@ const LoginPage = () => {
             </div>
           </div>
           <form onSubmit={handleSubmit} className="space-y-6">
+            
+            {/* Email input */}
             <div className="form-control">
               <label className="label">
                 <span className="label-text font-medium">Email</span>
@@ -44,7 +48,7 @@ const LoginPage = () => {
                 </div>
                 <input
                   type="email"
-                  className="input input-bordered w-full pl-10 bg-transparent"
+                  className="input input-bordered w-full pl-10 bg-transparent touch-action"
                   placeholder="you@example.com"
                   value={formData.email}
                   onChange={(e) =>
@@ -54,6 +58,7 @@ const LoginPage = () => {
               </div>
             </div>
 
+            {/* Password input  */}
             <div className="form-control">
               <label className="label">
                 <span className="label-text font-medium">Password</span>
@@ -64,7 +69,7 @@ const LoginPage = () => {
                 </div>
                 <input
                   type={showPassword ? 'text' : 'password'}
-                  className="input input-bordered w-full pl-10 bg-transparent"
+                  className="input input-bordered w-full pl-10 bg-transparent touch-action"
                   placeholder="••••••••"
                   value={formData.password}
                   onChange={(e) =>
