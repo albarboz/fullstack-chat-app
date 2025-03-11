@@ -48,7 +48,7 @@ const LoginPage = () => {
                 </div>
                 <input
                   type="email"
-                  className="input input-bordered w-full pl-10 bg-transparent touch-action"
+                  className="input input-bordered w-full pl-10 bg-transparent text-base"
                   placeholder="you@example.com"
                   value={formData.email}
                   onChange={(e) =>
@@ -69,7 +69,7 @@ const LoginPage = () => {
                 </div>
                 <input
                   type={showPassword ? 'text' : 'password'}
-                  className="input input-bordered w-full pl-10 bg-transparent touch-action"
+                  className="input input-bordered w-full pl-10 bg-transparent text-base"
                   placeholder="••••••••"
                   value={formData.password}
                   onChange={(e) =>
