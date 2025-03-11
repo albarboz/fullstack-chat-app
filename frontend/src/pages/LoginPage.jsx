@@ -36,7 +36,7 @@ const LoginPage = () => {
             </div>
           </div>
           <form onSubmit={handleSubmit} className="space-y-6">
-            
+
             {/* Email input */}
             <div className="form-control">
               <label className="label">
@@ -48,9 +48,10 @@ const LoginPage = () => {
                 </div>
                 <input
                   type="email"
-                  className="input input-bordered w-full pl-10 bg-transparent text-base"
+                  className="input input-bordered w-full pl-10 bg-transparent text-base focus:outline-none focus:ring-2 focus:ring-primary"
                   placeholder="you@example.com"
                   value={formData.email}
+                  autoComplete="email"
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
                   }
@@ -69,18 +70,19 @@ const LoginPage = () => {
                 </div>
                 <input
                   type={showPassword ? 'text' : 'password'}
-                  className="input input-bordered w-full pl-10 bg-transparent text-base"
+                  className="input input-bordered w-full pl-10 bg-transparent text-base focus:outline-none focus:ring-2 focus:ring-primary"
                   placeholder="••••••••"
                   value={formData.password}
+                  autoComplete="current-password"
                   onChange={(e) =>
                     setFormData({ ...formData, password: e.target.value })
                   }
                 />
                 <button
                   type="button"
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center h-full"
+                  // ARIA label improves accessibility by describing the button's function.
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}                >
                   {showPassword ? (
                     <EyeOff className="w-5 h-5 text-base-content/40" />
                   ) : (
@@ -90,9 +92,10 @@ const LoginPage = () => {
               </div>
             </div>
 
+            {/* Submit button */}
             <button
               type="submit"
-              className="btn btn-primary w-full"
+              className="btn btn-primary w-full py-2"
               disabled={isLoggingIn}
             >
               {isLoggingIn ? (
