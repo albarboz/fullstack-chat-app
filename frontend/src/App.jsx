@@ -34,7 +34,7 @@ console.log({ onlineUsers})
   }
 
   return (
-    <div data-theme={theme} className='h-screen overflow-hidden flex flex-col'>
+    <div data-theme={theme} className='min-h-screen overflow-hidden flex flex-col'>
     <Navbar />
     {/* Make sure this wrapper does not allow scrolling */}
     <div className="flex-1 overflow-hidden ">
