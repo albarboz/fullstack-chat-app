@@ -32,9 +32,10 @@ console.log({ onlineUsers})
   }
 
   return (
-    <div data-theme={theme} className='h-screen overflow-hidden'>
+    <div data-theme={theme} className='h-screen overflow-hidden flex flex-col'>
     <Navbar />
-    <div className="overflow-hidden">
+    {/* Make sure this wrapper does not allow scrolling */}
+    <div className="flex-1 overflow-hidden">
       <Routes>
         <Route path='/' element={authUser ? <HomePage /> : <Navigate to="/login" />} />
         <Route path='/signup' element={!authUser ? <SignupPage /> : <Navigate to="/" />} />
