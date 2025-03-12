@@ -39,14 +39,14 @@ console.log({ onlineUsers})
 
   if (isCheckingAuth && !authUser) {
     return (
-      <div className='flex items-center justify-center h-screen'>
+      <div className='flex items-center justify-center dynamic-height'>
         <Loader className='size-10 animate-spin' />
       </div>
     )
   }
 
   return (
-    <div data-theme={theme} className='h-screen overflow-hidden flex flex-col'>
+    <div data-theme={theme} className='dynamic-height overflow-hidden flex flex-col'>
     <Navbar />
     {/* Make sure this wrapper does not allow scrolling */}
     <div className="flex-1 overflow-hidden ">
