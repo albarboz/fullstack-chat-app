@@ -26,14 +26,15 @@ console.log({ onlineUsers})
   if (isCheckingAuth && !authUser) {
     return (
       <div className='flex items-center justify-center h-screen'>
-        <Loader className='side-10 animate-spin' />
+        <Loader className='size-10 animate-spin' />
       </div>
     )
   }
 
   return (
-    <div data-theme={theme} className='min-h-screen bg-base-100' >
-      <Navbar />
+    <div data-theme={theme} className='h-screen overflow-hidden'>
+    <Navbar />
+    <div className="overflow-hidden">
       <Routes>
         <Route path='/' element={authUser ? <HomePage /> : <Navigate to="/login" />} />
         <Route path='/signup' element={!authUser ? <SignupPage /> : <Navigate to="/" />} />
@@ -41,8 +42,9 @@ console.log({ onlineUsers})
         <Route path='/settings' element={<SettingsPage />} />
         <Route path='/profile' element={authUser ? <ProfilePage /> : <Navigate to="/login" />} />
       </Routes>
-      <Toaster position='bottom-left'/>
     </div>
+    <Toaster position='bottom-left' />
+  </div>
   )
 }
 
