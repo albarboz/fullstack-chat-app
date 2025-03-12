@@ -1,8 +1,23 @@
 
+/* Fix for Safari viewport height issue */
+:root {
+  --vh: 1vh;
+}
+
+@media (max-width: 768px) {
+  .dynamic-height {
+    height: calc(var(--vh, 1vh) * 100);
+  }
+}
+
+
 
 @import "tailwindcss";
 @plugin "daisyui" {
   themes: all;
 }
+
+
+
 
 

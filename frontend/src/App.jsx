@@ -21,6 +21,20 @@ console.log({ onlineUsers})
     checkAuth()
   }, [checkAuth])
 
+    // Fix Safari mobile viewport height issue
+    useEffect(() => {
+      const setVh = () => {
+        document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+      };
+      
+      setVh();
+      window.addEventListener('resize', setVh);
+      
+      return () => {
+        window.removeEventListener('resize', setVh);
+      };
+    }, []);
+
   console.log({ authUser })
 
   if (isCheckingAuth && !authUser) {
@@ -35,7 +49,7 @@ console.log({ onlineUsers})
     <div data-theme={theme} className='h-screen overflow-hidden flex flex-col'>
     <Navbar />
     {/* Make sure this wrapper does not allow scrolling */}
-    <div className="flex-1 overflow-hidden">
+    <div className="flex-1 overflow-hidden ">
       <Routes>
         <Route path='/' element={authUser ? <HomePage /> : <Navigate to="/login" />} />
         <Route path='/signup' element={!authUser ? <SignupPage /> : <Navigate to="/" />} />
