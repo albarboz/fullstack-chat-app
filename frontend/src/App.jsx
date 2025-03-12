@@ -21,32 +21,20 @@ console.log({ onlineUsers})
     checkAuth()
   }, [checkAuth])
 
-    // Fix Safari mobile viewport height issue
-    useEffect(() => {
-      const setVh = () => {
-        document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
-      };
-      
-      setVh();
-      window.addEventListener('resize', setVh);
-      
-      return () => {
-        window.removeEventListener('resize', setVh);
-      };
-    }, []);
+  
 
   console.log({ authUser })
 
   if (isCheckingAuth && !authUser) {
     return (
-      <div className='flex items-center justify-center dynamic-height'>
+      <div className='flex items-center justify-center h-screen'>
         <Loader className='size-10 animate-spin' />
       </div>
     )
   }
 
   return (
-    <div data-theme={theme} className='dynamic-height overflow-hidden flex flex-col'>
+    <div data-theme={theme} className='h-screen overflow-hidden flex flex-col'>
     <Navbar />
     {/* Make sure this wrapper does not allow scrolling */}
     <div className="flex-1 overflow-hidden ">
