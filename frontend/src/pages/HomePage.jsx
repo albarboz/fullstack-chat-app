@@ -9,15 +9,15 @@ const HomePage = () => {
 
   return (
     <div className='bg-base-300 p-0 md:p-4'>
-    <div className='min-h-screen flex items-center justify-center'>
-      <div className='bg-base-100 rounded-lg shadow-cl w-full max-w-6xl h-[100dvh] md:h-[calc(100dvh-8rem)] md:p-4 overflow-hidden'>
-        <div className='flex h-full rounded-lg overflow-hidden'>
-          <Sidebar />
-          {!selectedUser ? <NoChatSelected /> : <ChatContainer />}
+      <div className='min-h-screen flex items-center justify-center'>
+        <div className='bg-base-100 rounded-lg shadow-cl w-full max-w-6xl h-screen md:h-[calc(100vh-8rem)] md:p-4'>
+          <div className='flex h-full rounded-lg overflow-hidden'>
+            <Sidebar />
+            {!selectedUser ? <NoChatSelected /> : <ChatContainer />}
+          </div>
         </div>
       </div>
     </div>
-  </div>
   )
 }
 
