@@ -21,8 +21,6 @@ const App = () => {
     checkAuth()
   }, [checkAuth])
 
-
-
   console.log({ authUser })
 
   if (isCheckingAuth && !authUser) {
@@ -34,8 +32,9 @@ const App = () => {
   }
 
   return (
-    <div data-theme={theme} className='min-h-screen' >
+    <div data-theme={theme} className='' >
       <Navbar />
+      <div className=''> 
         <Routes>
           <Route path='/' element={authUser ? <HomePage /> : <Navigate to="/login" />} />
           <Route path='/signup' element={!authUser ? <SignupPage /> : <Navigate to="/" />} />
@@ -43,6 +42,8 @@ const App = () => {
           <Route path='/settings' element={<SettingsPage />} />
           <Route path='/profile' element={authUser ? <ProfilePage /> : <Navigate to="/login" />} />
         </Routes>
+      </div>
+
       <Toaster position='bottom-left' />
     </div>
   )
