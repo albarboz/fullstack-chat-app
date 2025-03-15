@@ -1,11 +1,6 @@
-/* html, body, #root {
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-} */
-
+body {
+  overflow: hidden;
+}
 
 @import "tailwindcss";
 @plugin "daisyui" {
