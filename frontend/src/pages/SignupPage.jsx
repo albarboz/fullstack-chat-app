@@ -1,7 +1,6 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useAuthStore } from '../store/useAuthStore.js'
-import { MessageSquare, User, Lock, EyeOff, Eye, Loader2, } from 'lucide-react';
+import { MessageSquare, User, Lock, EyeOff, Eye, Loader2, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import AuthImagePattern from '../components/AuthImagePattern.jsx';
 import toast from 'react-hot-toast';
@@ -34,9 +33,11 @@ const SignupPage = () => {
 
   return (
     <div className='min-h-screen grid lg:grid-cols-2'>
+
       {/* left side */}
-      <div className='flex flex-col justify-center p-6 sm:p-12'>
+      <div className='flex flex-col justify-center items-center p-6 sm:p-12'>
         <div className='w-full max-w-md space-y-8'>
+
           {/* LOGO */}
           <div className='text-center mb-8'>
             <div className='flex flex-col items-center gap-2 group'>
@@ -47,7 +48,10 @@ const SignupPage = () => {
               <p className='text-base-content/60'>Get started with your free account</p>
             </div>
           </div>
+
           <form onSubmit={handleSubmit} className="space-y-6">
+
+            {/* name input */}
             <div className="form-control">
               <label className="label">
                 <span className="label-text font-medium">Full Name</span>
@@ -65,18 +69,19 @@ const SignupPage = () => {
                 />
               </div>
             </div>
+
+            {/* email input */}
             <div className='form-control'>
               <label className='label'>
                 <span className='label-text font-medium'>Email</span>
               </label>
               <div className='relative'>
                 <div className='absolute inset-y-0 left-0 pl-3 flex items-center'>
-                  <User className='size-5 text-base-content/40' />
+                  <Mail className='size-5 text-base-content/40' />
                 </div>
                 <input
                   type="email"
                   className={`input input-bordered w-full pl-10 bg-transparent text-base focus:outline-none focus:ring-2 focus:ring-primary`}
-                  // className='pl-10 input-bordered w-full'
                   placeholder='you@example.com'
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -84,6 +89,7 @@ const SignupPage = () => {
               </div>
             </div>
 
+            {/* password input */}
             <div className='form-control'>
               <label className='label'>
                 <span className='label-text font-medium'>Password</span>
@@ -140,9 +146,7 @@ const SignupPage = () => {
         </div>
       </div>
 
-
       {/* Right side */}
-
       <AuthImagePattern
         title='Join our community'
         subtitle='Connect with friends, share moments, and stay in touch with your loved ones.'

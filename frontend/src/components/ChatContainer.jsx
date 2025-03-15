@@ -41,7 +41,7 @@ const ChatContainer = () => {
   }
 
   return (
-    <div className="flex-1 flex flex-col overflow-hidden">
+    <div className="flex-1 flex flex-col overflow-auto">
       <ChatHeader />
 
       <div className="flex-1 overflow-y-auto p-3 sm:p-5 space-y-3 sm:space-y-5 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
@@ -53,12 +53,11 @@ const ChatContainer = () => {
           >
 
             <div className="chat-image avatar ">
-              <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-full border-b shadow-sm">
+              <div className="size-10 sm:size-10 rounded-full border-b shadow-sm">
                 <img
                   src={message.senderId === authUser._id ? authUser.profilePic || '/avatar.png' :
                     selectedUser.profilePic || '/avatar.png'}
                   alt="profile pic"
-                  className="w-full h-full object-cover rounded-full"
 
                 />
               </div>
