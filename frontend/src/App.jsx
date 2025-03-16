@@ -32,7 +32,7 @@ const App = () => {
   }
 
   return (
-    <div data-theme={theme} className='min-h-screen flex flex-col' >
+    <div data-theme={theme} className='h-dvh flex flex-col' >
       <Navbar />
       <div className=''> 
         <Routes>
