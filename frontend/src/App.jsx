@@ -44,7 +44,7 @@ const App = () => {
         </Routes>
       </div>
 
-      <Toaster position='bottom-left' />
+      <Toaster position='bottom-center' />
     </div>
   )
 }
