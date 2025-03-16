@@ -19,10 +19,10 @@ const Sidebar = () => {
   if (isUsersLoading) return <SidebarSkeleton />
 
   return (
-    <aside className='h-full w-20 lg:w-72 border-r border-base-300 flex flex-col transition-all duration-200'>
-      <div className='border-b border-base-300 w-full p-5'>
+    <aside className='h-full lg:w-72 border-r border-base-300 flex flex-col transition-all duration-200'>
+      <div className='border-b border-base-300 w-full p-6'>
         <div className="flex items-center gap-2">
-          <Users className="w-6 h-6" />
+          <Users className="size-6" />
           <span className="font-medium hidden lg:block">Contacts</span>
         </div>
         <div className='mt-3 hidden lg:flex items-center gap-2'>
@@ -31,16 +31,16 @@ const Sidebar = () => {
               type="checkbox"
               checked={showOnlineOnly}
               onChange={(e) => setShowOnlineOnly(e.target.checked)}
-              className='checkbox checkbox-sm'
+              className='checkbox checkbox-xs'
             />
 
-            <span className='text-sm'>Show online only</span>
+            <span className='text-xs'>Show online only</span>
           </label>
           <span className='text-xs text-zinc-500'>({onlineUsers.length - 1} online)</span>
         </div>
       </div>
 
-      <div className='overflow-y-auto w-full py-3'>
+      <div className='overflow-y-auto w-full p-3'>
         {filteredUsers.map((user) => (
           <button
             key={user._id}
