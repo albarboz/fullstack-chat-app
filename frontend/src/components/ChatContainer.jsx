@@ -41,7 +41,7 @@ const ChatContainer = () => {
   }
 
   return (
-    <div className="flex-1 flex flex-col overflow-hidden">
+    <div className="flex-1 flex flex-col overflow-auto">
       <ChatHeader />
 
       <div className="flex-1 overflow-y-auto p-3 sm:p-5 space-y-3 sm:space-y-5 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent overscroll-contain">
