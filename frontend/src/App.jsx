@@ -34,7 +34,6 @@ const App = () => {
   return (
     <div data-theme={theme} className='h-dvh flex flex-col overflow-hidden' >
       <Navbar />
-      <div className='h-dvh flex flex-col overflow-hidden'>
         <Routes>
           <Route path='/' element={authUser ? <HomePage /> : <Navigate to="/login" />} />
           <Route path='/signup' element={!authUser ? <SignupPage /> : <Navigate to="/" />} />
@@ -42,7 +41,6 @@ const App = () => {
           <Route path='/settings' element={<SettingsPage />} />
           <Route path='/profile' element={authUser ? <ProfilePage /> : <Navigate to="/login" />} />
         </Routes>
-      </div>
       <Toaster position='bottom-center' />
     </div>
   )
