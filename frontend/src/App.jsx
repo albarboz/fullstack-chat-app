@@ -34,7 +34,7 @@ const App = () => {
   return (
     <div data-theme={theme} className='h-dvh flex flex-col overflow-hidden' >
       <Navbar />
-      <div className='flex-grow overflow-auto min-h-0'>
+      <div className='h-dvh flex flex-col overflow-hidden'>
         <Routes>
           <Route path='/' element={authUser ? <HomePage /> : <Navigate to="/login" />} />
           <Route path='/signup' element={!authUser ? <SignupPage /> : <Navigate to="/" />} />
