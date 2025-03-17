@@ -32,9 +32,9 @@ const App = () => {
   }
 
   return (
-    <div data-theme={theme} className='min-h-dvh flex flex-col ' >
+    <div data-theme={theme} className='min-h-dvh flex flex-col overflow-hidden' >
       <Navbar />
-      <div className=''> 
+      <div className="flex-1 overflow-y-auto">
         <Routes>
           <Route path='/' element={authUser ? <HomePage /> : <Navigate to="/login" />} />
           <Route path='/signup' element={!authUser ? <SignupPage /> : <Navigate to="/" />} />
@@ -43,7 +43,6 @@ const App = () => {
           <Route path='/profile' element={authUser ? <ProfilePage /> : <Navigate to="/login" />} />
         </Routes>
       </div>
-
       <Toaster position='bottom-center' />
     </div>
   )
