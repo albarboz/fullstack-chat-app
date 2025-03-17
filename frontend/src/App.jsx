@@ -32,7 +32,7 @@ const App = () => {
   }
 
   return (
-    <div data-theme={theme} className='h-dvh flex flex-col overflow-hidden' >
+    <div data-theme={theme} className='h-dvh flex flex-col' >
       <Navbar />
         <Routes>
           <Route path='/' element={authUser ? <HomePage /> : <Navigate to="/login" />} />
