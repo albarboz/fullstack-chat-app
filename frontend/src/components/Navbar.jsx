@@ -1,56 +1,75 @@
 import React from 'react'
-import { useAuthStore } from '../store/useAuthStore.js'
-import { Link } from 'react-router-dom';
-import { LogOut, MessageSquare, User, Settings } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+// import { useAuthStore } from '../store/useAuthStore.js'
+import { LogOut, User, Settings, Menu, MessageCircleMore, Search } from 'lucide-react';
 
 
 const Navbar = () => {
-  const { logout, authUser } = useAuthStore()
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const modalRef = useRef(null)
+  const menuButtonRef = useRef(null)
+
+
+
+  // const { logout, authUser } = useAuthStore()
+  const toggleModal = () => {
+    setIsModalOpen(prev => !prev)
+  };
+
+
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        isModalOpen &&
+        modalRef.current &&
+        !modalRef.current.contains(event.target) &&
+        menuButtonRef.current &&
+        !menuButtonRef.current.contains(event.target)
+      ) {
+        setIsModalOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+
+  }, [isModalOpen])
+
+
   return (
-    <header className='border-b border-base-300 w-full backdrop-blur-lg bg-base-100/80'>
-      <div className='container mx-auto px-4 h-16'>
-        <div className='flex items-center justify-between h-full'>
-          <div className='flex items-center gap-8'>
-            <Link to='/' className='flex items-center gap-2.5 hover:opacity-80 transition-all'>
-              <div className='w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center'>
-                <MessageSquare className='w-5 h-5 text-primary' />
-              </div>
-              <h1 className='text-lg font-bold'>Chat</h1>
-            </Link>
-          </div>
-
-          <div className='flex items-center gap-5'>
-            <Link
-              to={"/settings"}
-              className={`btn btn-sm gap-2 transition-colors`}
+    <header >
+      <div className="container navbar">
+        <div className="navbar-left">
+          {/* Wrap the menu button and modal in a container */}
+          <div className="menu-container">
+            <button
+              className={`menu-button ${isModalOpen ? 'active' : ''}`}
+              onClick={toggleModal}
+              ref={menuButtonRef}
             >
-              <Settings className='w-4 h-4' />
-              <span className='hidden sm:inline'>Settings</span>
-            </Link>
-
-            {authUser && (
-              <>
-                <Link to={"/profile"} className={`btn btn-sm gap-2`}>
-                  <User className='size-5' />
-                  <span className='hidden sm:inline'>Profile</span>
-                </Link>
-
-                <button className='flex gap-2 items-center' onClick={logout}>
-                  <LogOut className='size-5' />
-                  <span className='hidden sm:inline'>Logout</span>
-
-                </button>
-
-              </>
+              <Menu size={24} />
+            </button>
+            {isModalOpen && (
+              <div className="modal-content" ref={modalRef}>
+                <ul className="modal-menu">
+                  <li><a href="/" className='navbar-chat'><MessageCircleMore />Chats</a></li>
+                  <li><a href="/settings"><Settings /> Settings</a></li>
+                  <li><a href="/profile"><User /> Profile</a></li>
+                  <li><a href="/logout"><LogOut /> Logout</a></li>
+                </ul>
+              </div>
             )}
-
           </div>
-
+          {/* Search bar remains next to the menu */}
+          <div className='search-container'>
+            <Search size={18} className='search-icon' />
+            <input type="text" className="search-bar" placeholder="Search..." />
+          </div>
         </div>
-
       </div>
-
     </header>
+
   )
 }
 

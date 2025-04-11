@@ -13,7 +13,7 @@ import { Toaster } from 'react-hot-toast'
 
 const App = () => {
   const { authUser, checkAuth, isCheckingAuth, onlineUsers } = useAuthStore()
-  const { theme } = useThemeStore()
+  // const { theme } = useThemeStore()
 
   console.log({ onlineUsers })
 
@@ -32,8 +32,10 @@ const App = () => {
   }
 
   return (
-    <div data-theme={theme}>
+    // <div data-theme={theme} >
+    <div className='app'>
       <Navbar />
+      <div className='container'>
         <Routes>
           <Route path='/' element={authUser ? <HomePage /> : <Navigate to="/login" />} />
           <Route path='/signup' element={!authUser ? <SignupPage /> : <Navigate to="/" />} />
@@ -41,6 +43,7 @@ const App = () => {
           <Route path='/settings' element={<SettingsPage />} />
           <Route path='/profile' element={authUser ? <ProfilePage /> : <Navigate to="/login" />} />
         </Routes>
+      </div>
       <Toaster position='bottom-center' />
     </div>
   )
