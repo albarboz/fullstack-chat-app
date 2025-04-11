@@ -95,10 +95,10 @@ header {
 }
 
 .search-bar {
-  padding: 0.7em 0.5em 0.5em 2.7em; /* Adjust left padding to accommodate icon */
+  padding: .5em 0.5em 0.33em 2.2em; /* Adjust left padding to accommodate icon */
   border: 1px solid #ccc;
   border-radius: 100px;
-  font-size: 0.75rem;
+  font-size: 1rem;
   width: 100%;
   box-sizing: border-box;
 }
