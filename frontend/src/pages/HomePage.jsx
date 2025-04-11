@@ -14,7 +14,7 @@ const HomePage = () => {
       {/* <Sidebar /> */}
 
       <ConversationList />
-      {selectedUser ? <ChatContainer /> : <div>Select a conversation to view messages</div>}
+      {selectedUser ? <ChatContainer /> : <div></div>}
     </div>
   )
 }

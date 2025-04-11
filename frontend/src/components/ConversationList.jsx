@@ -32,7 +32,7 @@ const ConversationList = () => {
                 width: '100%',
                 padding: '0.5rem 1rem',
                 border: 'none',
-                borderTop: '.5px solid #ccc',
+                borderTop: 'none',
                 borderBottom: '.5px solid #ccc',
                 background: 'none',
                 cursor: 'pointer'
