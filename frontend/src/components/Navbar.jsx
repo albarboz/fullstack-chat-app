@@ -54,9 +54,9 @@ const Navbar = () => {
               <div className="modal-content" ref={modalRef}>
                 <ul className="modal-menu">
                   <li><a href="/" className='navbar-chat'><MessageCircleMore />Chats</a></li>
-                  <li><a href="/settings"><Settings /> Settings</a></li>
-                  <li><a href="/profile"><User /> Profile</a></li>
-                  <li><a href="/logout"><LogOut /> Logout</a></li>
+                  <li><a href="/settings"><Settings />Settings</a></li>
+                  <li><a href="/profile"><User />Profile</a></li>
+                  <li><a href="/logout"><LogOut />Logout</a></li>
                 </ul>
               </div>
             )}

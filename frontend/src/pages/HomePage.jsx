@@ -2,7 +2,6 @@ import React from 'react'
 import { useChatStore } from '../store/useChatStore.js'
 // import NoChatSelected from '../components/NoChatSelected.jsx'
 import ChatContainer from '../components/ChatContainer.jsx'
-// import Sidebar from "../components/Sidebar.jsx";
 import ConversationList from '../components/ConversationList.jsx'
 
 const HomePage = () => {
@@ -14,7 +13,7 @@ const HomePage = () => {
       {/* <Sidebar /> */}
 
       <ConversationList />
-      {selectedUser ? <ChatContainer /> : <div></div>}
+      {selectedUser ? <ChatContainer /> : <div /> }
     </div>
   )
 }
