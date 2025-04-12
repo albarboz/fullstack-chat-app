@@ -8,7 +8,13 @@ import Navbar from '../components/Navbar.jsx'
 const HomePage = () => {
   const { selectedUser } = useChatStore()
 
-
+  const setViewportHeight = () => {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  };
+  
+  window.addEventListener('resize', setViewportHeight);
+  setViewportHeight();
 
   return (
     <div className='container homepage'>
