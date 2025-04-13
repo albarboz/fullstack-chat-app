@@ -1,5 +1,4 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
-import Navbar from './components/Navbar.jsx'
 import HomePage from './pages/HomePage.jsx'
 import SignupPage from './pages/SignupPage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
@@ -30,6 +29,17 @@ const App = () => {
       </div>
     )
   }
+
+
+  // useEffect(() => {
+  //   const ua = navigator.userAgent || navigator.vendor || window.opera
+  
+  //   if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
+  //     document.body.classList.add('is-ios')
+  //   } else if (navigator.platform.toUpperCase().indexOf('MAC') >= 0) {
+  //     document.body.classList.add('is-macos')
+  //   }
+  // }, [])
 
   return (
     // <div data-theme={theme} >

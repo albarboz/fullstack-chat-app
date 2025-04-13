@@ -28,17 +28,16 @@ const ConversationList = () => {
                         key={user._id}
                         className="conversation-list__row"
                         onClick={() => setSelectedUser(user)}
-                        style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            width: '100%',
-                            padding: '0.5rem 1rem',
-                            border: 'none',
-                            borderTop: 'none',
-                            borderBottom: '.5px solid #ccc',
-                            background: 'none',
-                            cursor: 'pointer'
-                        }}
+                        // style={{
+                        //     display: 'flex',
+                        //     width: '100%',
+                        //     padding: '.5rem 0.5rem',
+                        //     border: 'none',
+                        //     borderTop: 'none',
+                        //     borderBottom: '.5px solid #ccc',
+                        //     background: 'none',
+                        //     cursor: 'pointer'
+                        // }}
                     >
 
                         {/* PROFILE PIC/AVATAR SECTION */}
@@ -46,7 +45,7 @@ const ConversationList = () => {
                             <img
                                 src={user.profilePic || '/avatar.png'}
                                 alt={user.fullName}
-                                style={{ width: '40px', height: '40px', borderRadius: '50%' }}
+                                style={{ width: '60px', height: '60px', borderRadius: '50%' }}
                             />
                             {onlineUsers.includes(user._id) && (
                                 <span
@@ -67,9 +66,9 @@ const ConversationList = () => {
 
 
                         {/* LAST MESSAGE AND NAME SECTION */}
-                        <div className="conversation-list__info" style={{ textAlign: 'left' }}>
-                            <div className="conversation-list__name" style={{ fontWeight: 'bold' }}>{user.fullName}</div>
-                            <div className="conversation-list__preview" style={{ color: '#555', fontSize: '0.9rem' }}>
+                        <div className="conversation-list__info row" style={{ textAlign: 'left', flexDirection: 'column', flexGrow: 1}}>
+                            <div className="conversation-list__name" style={{ fontWeight: 'bold', fontSize: '1rem', display: 'flex', alignItems: 'center' }}>{user.fullName}</div>
+                            <div className="conversation-list__preview" style={{ color: '#555', fontSize: '1rem', display: 'flex', alignItems: 'center' }}>
                                 {user.lastMessage ? user.lastMessage.text : 'No messages yet'}
                             </div>
                         </div>
