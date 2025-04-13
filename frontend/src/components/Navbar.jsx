@@ -39,7 +39,7 @@ const Navbar = () => {
 
   return (
     <header>
-      <div className="container navbar">
+      <div className="container">
         <div className="navbar-left">
           {/* Wrap the menu button and modal in a container */}
           <div className="menu-container">

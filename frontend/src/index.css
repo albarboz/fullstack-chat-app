@@ -5,16 +5,20 @@
 }
 
 html,
-body {
+body,
+h3 {
   margin: 0;
   font-family: "Roboto", sans-serif;
 }
+
+
 
 body.is-ios .conversation-list__row,
 body.is-macos .conversation-list__row {
   --color-text-secondary: var(--color-text-secondary-apple);
   -webkit-font-smoothing: antialiased;
-  background-color: rgba(250, 250, 250, 0.95); /* subtle apple-like touch */
+  background-color: rgba(250, 250, 250, 0.95);
+  /* subtle apple-like touch */
 }
 
 body {
@@ -36,12 +40,10 @@ header {
   justify-content: space-between;
 }
 
-
 .container {
   width: 97%;
   max-width: 500px;
   margin: 0 auto;
-  /* added for nav-toggle positioning */
   position: relative;
   justify-content: space-between;
 }
@@ -50,13 +52,43 @@ header {
   display: flex;
 }
 
+
+/* HOMEPAGE SECTION START */
+
+.homepage {
+  min-height: calc(var(--vh, 1vh) * 100);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  /* Prevent overall scrolling so only child elements scroll */
+}
+
+.homepage>nav {
+  flex-shrink: 0;
+}
+
+.content-area {
+  flex: 1;
+  overflow: auto;
+  /* Prevent overall scrolling so only child elements scroll */
+  position: relative;
+  scrollbar-width: none;
+}
+
+/* HOMEPAGE SECTION END */
+
+
+
+/* NAVBAR SECTION START */
+
 .navbar-left {
   align-items: center;
   display: flex;
 }
 
 
-/* CONTAINER FOR MENUU BUTTON AND MODAL */
+
+/* container for menu button and modal */
 .menu-container {
   position: relative;
   display: flex;
@@ -78,7 +110,7 @@ header {
   height: 30px;
 
   border-radius: 50%;
-  
+
   /* Centering the SVG icon inside */
   display: flex;
   justify-content: center;
@@ -93,9 +125,8 @@ header {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-/* SEARCH BAR */
 
-
+/* search bar section */
 .search-container {
   position: relative;
   display: flex;
@@ -107,19 +138,19 @@ header {
   position: absolute;
   left: 10px;
   z-index: 1;
-  pointer-events: none; /* Ensure clicks pass through to the input */
+  pointer-events: none;
+  /* Ensure clicks pass through to the input */
 }
 
 .search-bar {
-  padding: .5em 0.5em 0.33em 2.2em; /* Adjust left padding to accommodate icon */
+  padding: .5em 0.5em 0.33em 2.2em;
+  /* Adjust left padding to accommodate icon */
   border: 1px solid #ccc;
   border-radius: 100px;
   font-size: 1rem;
   width: 100%;
   box-sizing: border-box;
 }
-
-
 
 /* Dropdown Modal Content */
 .modal-content {
@@ -157,79 +188,41 @@ header {
   opacity: 0.7;
 }
 
-
 /* NAVBAR SECTION END */
 
 
 
 
-/* NO CHAT SELECTED SECTION */
+/* NO CHAT SELECTED SECTION START */
 
 .no-chat-selected-container {
   padding-top: 5em;
   /* min-height: 100vh; */
 }
 
-.no-chat-selected-container, h2, p  {
+.no-chat-selected-container,
+h2,
+p {
   text-align: center;
 }
 
-.homepage-container {
-  height: 100vh;
-}
-
-.fixed-button {
-  position: fixed;   /* Fixed positioning relative to the viewport */
-  bottom: 20px;      /* Distance from the bottom edge of the viewport */
-  right: 20px;       /* Distance from the right edge of the viewport */
-  z-index: 1000;     /* Ensures the button appears above most other elements */
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  border-radius: 4px;
-  background-color: #007bff;  /* Customize as needed */
-  color: white;
-  cursor: pointer;
-  /* Optional: add transition for hover effects */
-  transition: background-color 0.3s;
-}
-
-.fixed-button:hover {
-  background-color: #0056b3; /* Customize the hover state color */
-}
+/* NO CHAT SELECTED SECTION END */
 
 
-.homepage {
-  min-height: calc(var(--vh, 1vh) * 100);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden; /* Prevent overall scrolling so only child elements scroll */
-}
 
-.homepage > nav {
-  flex-shrink: 0;
-}
-
-.content-area {
-  flex: 1;
-  overflow: auto; /* Prevent overall scrolling so only child elements scroll */
-  position: relative;
-  scrollbar-width: none;
-}
+/* CONVERSATION LIST SECTION START */
 
 
-.conversation-list__info {
-  flex-grow: 1;
+.conversation-list__rows {
+  -webkit-overflow-scrolling: touch;
 }
 
 .conversation-list__row {
   min-height: 3rem;
-  background-color: var(--background-color);
   border: none !important;
   box-shadow: none !important;
   outline: none !important;
-  display: flex
-;
+  display: flex;
   align-items: center;
   padding: 0.5rem 0.5rem;
   position: relative;
@@ -242,10 +235,91 @@ header {
 }
 
 
-.conversation-list__rows {
-  -webkit-overflow-scrolling: touch;
+/* profile pic section */
+.conversation-list__avatar {
+  margin-right: .7rem;
+  position: relative;
 }
+
+
+/* last message and name section */
+.conversation-list__status-indicator {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 100px;
+  background-color: green;
+  border: 2px solid black;
+}
+
+.conversation-list__info {
+  flex-grow: 1;
+  flex-shrink: 1;
+  min-width: 0;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 7px;
+}
+
+
+.conversation-list__name {
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+}
+
+.conversation-list__preview {
+  color: #555;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  text-overflow: ellipsis;
+}
+
+.conversation-list__timestamp {
+  font-size: small;
+}
+
+/* CONVERASTION LIST SECTION END */
+
+
 /* @import "tailwindcss";
 @plugin "daisyui" {
   themes: all;
 } */
+
+
+/* FIXED BUTTON START */
+.fixed-button {
+  position: fixed;
+  /* Fixed positioning relative to the viewport */
+  bottom: 20px;
+  /* Distance from the bottom edge of the viewport */
+  right: 20px;
+  /* Distance from the right edge of the viewport */
+  z-index: 1000;
+  /* Ensures the button appears above most other elements */
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  /* Customize as needed */
+  color: white;
+  cursor: pointer;
+  /* Optional: add transition for hover effects */
+  transition: background-color 0.3s;
+}
+
+.fixed-button:hover {
+  background-color: #0056b3;
+  /* Customize the hover state color */
+}
+
+/* FIXED BUTTON END */

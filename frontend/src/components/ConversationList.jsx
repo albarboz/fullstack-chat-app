@@ -19,62 +19,47 @@ const ConversationList = () => {
     //   if (isUsersLoading) return <SidebarSkeleton />
 
     return (
-        <div className="conversation-list">
-            <div className="conversation-list__rows">
+        <div className="conversation-list__rows">
 
-                {/* MAIN BUTTON SHOWING ALL INFO */}
-                {filteredUsers.map((user) => (
-                    <button
-                        key={user._id}
-                        className="conversation-list__row"
-                        onClick={() => setSelectedUser(user)}
-                        // style={{
-                        //     display: 'flex',
-                        //     width: '100%',
-                        //     padding: '.5rem 0.5rem',
-                        //     border: 'none',
-                        //     borderTop: 'none',
-                        //     borderBottom: '.5px solid #ccc',
-                        //     background: 'none',
-                        //     cursor: 'pointer'
-                        // }}
-                    >
+            {/* MAIN BUTTON SHOWING ALL INFO */}
+            {filteredUsers.map((user) => (
+                <button
+                    key={user._id}
+                    className="conversation-list__row"
+                    onClick={() => setSelectedUser(user)}
+                >
 
-                        {/* PROFILE PIC/AVATAR SECTION */}
-                        <div className="conversation-list__avatar" style={{ marginRight: '1rem', position: 'relative' }}>
-                            <img
-                                src={user.profilePic || '/avatar.png'}
-                                alt={user.fullName}
-                                style={{ width: '60px', height: '60px', borderRadius: '50%' }}
-                            />
-                            {onlineUsers.includes(user._id) && (
-                                <span
-                                    className="conversation-list__status-indicator"
-                                    style={{
-                                        position: 'absolute',
-                                        bottom: 0,
-                                        right: 0,
-                                        width: '10px',
-                                        height: '10px',
-                                        borderRadius: '50%',
-                                        backgroundColor: 'green',
-                                        border: '2px solid white'
-                                    }}
-                                />
-                            )}
-                        </div>
+                    {/* PROFILE PIC/AVATAR SECTION */}
+                    <div className="conversation-list__avatar">
+                        <img
+                            src={user.profilePic || '/avatar.png'}
+                            alt={user.fullName}
+                            style={{ width: '60px', height: '60px', borderRadius: '50%' }}
+                        />
+                        {onlineUsers.includes(user._id) && (
+                            <span className="conversation-list__status-indicator" />
+                        )}
+                    </div>
 
 
-                        {/* LAST MESSAGE AND NAME SECTION */}
-                        <div className="conversation-list__info row" style={{ textAlign: 'left', flexDirection: 'column', flexGrow: 1}}>
-                            <div className="conversation-list__name" style={{ fontWeight: 'bold', fontSize: '1rem', display: 'flex', alignItems: 'center' }}>{user.fullName}</div>
-                            <div className="conversation-list__preview" style={{ color: '#555', fontSize: '1rem', display: 'flex', alignItems: 'center' }}>
-                                {user.lastMessage ? user.lastMessage.text : 'No messages yet'}
+                    {/* LAST MESSAGE AND NAME SECTION */}
+                    <div className="conversation-list__info">
+                        <div className="conversation-list__name"><h3>{user.fullName}</h3>
+
+
+                            <div className="conversation-list__timestamp">
+                                {user.lastMessage?.createdAt
+                                    ? new Date(user.lastMessage.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                                    : ''}
                             </div>
+
                         </div>
-                    </button>
-                ))}
-            </div>
+                        <div className="conversation-list__preview">
+                            {user.lastMessage ? user.lastMessage.text : 'No messages yet'}
+                        </div>
+                    </div>
+                </button>
+            ))}
         </div>
     )
 }

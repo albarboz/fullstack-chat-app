@@ -9,37 +9,35 @@ import { useEffect } from 'react'
 const HomePage = () => {
   const { selectedUser } = useChatStore()
 
+  // APPLE SPECIFIC SECTION
   const setViewportHeight = () => {
     const vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
   };
-  
+
   window.addEventListener('resize', setViewportHeight);
   setViewportHeight();
 
+  useEffect(() => {
+    const ua = navigator.userAgent || navigator.vendor || window.opera
 
-   useEffect(() => {
-      const ua = navigator.userAgent || navigator.vendor || window.opera
-    
-      if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
-        document.body.classList.add('is-ios')
-      } else if (navigator.platform.toUpperCase().indexOf('MAC') >= 0) {
-        document.body.classList.add('is-macos')
-      }
-    }, [])
-  
+    if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
+      document.body.classList.add('is-ios')
+    } else if (navigator.platform.toUpperCase().indexOf('MAC') >= 0) {
+      document.body.classList.add('is-macos')
+    }
+  }, [])
+
 
   return (
     <div className='container homepage'>
-
-      {/* <Sidebar /> */}
       <Navbar />
+
       <div className='content-area'>
-      {selectedUser ? <ChatContainer /> : <ConversationList />}
+        {selectedUser ? <ChatContainer /> : <ConversationList />}
       </div>
 
-       {/* Floating Button */}
-       <button className="fixed-button">Click Me!</button>
+      <button className="fixed-button">Click Me!</button>
     </div>
   )
 }

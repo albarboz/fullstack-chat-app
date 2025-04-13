@@ -40,11 +40,11 @@ const ChatContainer = () => {
   }
 
   return (
-    <div className="">
+    <div className="chat-container">
 
       <ChatHeader />
 
-      <div className="">
+      <div>
         {messages.map((message) => (
           <div
             key={message._id}
