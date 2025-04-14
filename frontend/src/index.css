@@ -92,23 +92,19 @@ header {
 .menu-container {
   position: relative;
   display: flex;
-  /* Ensures the container wraps only around its content */
   align-items: center;
 }
 
 .menu-button {
   background: none;
   background-color: transparent;
-
   border: none;
   cursor: pointer;
   padding: 0;
   margin-right: 1.2em;
   margin-left: .55em;
-
-  width: 30px;
-  height: 30px;
-
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
 
   /* Centering the SVG icon inside */
@@ -276,7 +272,7 @@ p {
 
 .conversation-list__preview {
   color: #555;
-  font-size: 1.1rem;
+  font-size: 1rem;
   display: flex;
   align-items: center;
   text-overflow: ellipsis;
