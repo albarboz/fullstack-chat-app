@@ -4,10 +4,12 @@ import { useChatStore } from '../store/useChatStore.js'
 import ChatContainer from '../components/ChatContainer.jsx'
 import ConversationList from '../components/ConversationList.jsx'
 import Navbar from '../components/Navbar.jsx'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 const HomePage = () => {
   const { selectedUser } = useChatStore()
+    const [searchTerm, setSearchTerm] = useState('')
+  
 
   // APPLE SPECIFIC SECTION
   const setViewportHeight = () => {
@@ -31,10 +33,10 @@ const HomePage = () => {
 
   return (
     <div className='container homepage'>
-      <Navbar />
+      <Navbar searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
 
       <div className='content-area'>
-        {selectedUser ? <ChatContainer /> : <ConversationList />}
+        {selectedUser ? <ChatContainer searchTerm={searchTerm} /> : <ConversationList searchTerm={searchTerm}  />}
       </div>
 
       <button className="fixed-button">Click Me!</button>

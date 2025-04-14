@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { LogOut, User, Settings, Menu, MessageCircleMore, Search } from 'lucide-react';
 
 
-const Navbar = () => {
+const Navbar = ({ searchTerm, setSearchTerm }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const modalRef = useRef(null)
   const menuButtonRef = useRef(null)
@@ -64,7 +64,13 @@ const Navbar = () => {
           {/* Search bar remains next to the menu */}
           <div className='search-container'>
             <Search size={18} className='search-icon' />
-            <input type="text" className="search-bar" placeholder="Search..." />
+            <input 
+            type="text"
+            className="search-bar" 
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+             />
           </div>
         </div>
       </div>

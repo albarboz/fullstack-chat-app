@@ -5,14 +5,13 @@ import MessageInput from "./MessageInput.jsx"
 import MessageSkeleton from "./skeletons/MessageSkeleton.jsx"
 import { useAuthStore } from "../store/useAuthStore.js"
 import { formatMessageTime } from "../lib/utils.js"
+import Highlight from "./Highlight.jsx"
 
 
-const ChatContainer = () => {
+const ChatContainer = ({ searchTerm }) => {
   const { messages, getMessages, isMessagesLoading, selectedUser, subscribeToMessages, unsubscribeFromMessages } = useChatStore()
   const { authUser } = useAuthStore()
   const messageEndRef = useRef(null)
-
-
 
   useEffect(() => {
     getMessages(selectedUser._id)
@@ -27,25 +26,20 @@ const ChatContainer = () => {
     }
   }, [messages])
 
+    // Filter messages based on the search term
+    const filteredMessages = searchTerm
+    ? messages.filter(message =>
+        message.text &&
+        message.text.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : messages;
 
-
-  if (isMessagesLoading) {
-    return (
-      <div className="">
-        <ChatHeader />
-        <MessageSkeleton />
-        <MessageInput />
-      </div>
-    )
-  }
 
   return (
     <div className="chat-container">
-
       <ChatHeader />
-
       <div>
-        {messages.map((message) => (
+        {filteredMessages.map((message) => (
           <div
             key={message._id}
             className={`chat ${message.senderId === authUser._id ? 'chat-end' : 'chat-start'}`}
@@ -77,7 +71,7 @@ const ChatContainer = () => {
                   className="max-w-[120px] sm:max-w-[200px] rounded-sm mb-1 sm:mb-2 mt-1 sm:mt-2"
                 />
               )}
-              {message.text && <p className="text-sm sm:text-base">{message.text}</p>}
+              {message.text && <p className="text-sm sm:text-base"><Highlight text={message.text} highlight={searchTerm} /></p>}
             </div>
           </div>
         ))}

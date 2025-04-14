@@ -56,6 +56,15 @@ export const getMessages = async (req, res) => {
     }
 }
 
+export const getAllMessages = async (req, res) => {
+  try {
+    const messages = await Message.find().sort({ createdAt: -1 });
+    res.status(200).json(messages);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch messages." });
+  }
+}
+
 
 export const sendMessage = async (req, res) => {
     try {

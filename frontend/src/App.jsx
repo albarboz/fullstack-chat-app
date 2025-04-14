@@ -6,12 +6,13 @@ import SettingsPage from './pages/SettingsPage.jsx'
 import ProfilePage from './pages/ProfilePage.jsx'
 import { useAuthStore } from './store/useAuthStore.js'
 // import { useThemeStore } from './store/useThemeStore.js'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
 
 const App = () => {
   const { authUser, checkAuth, isCheckingAuth, onlineUsers } = useAuthStore()
   // const { theme } = useThemeStore()
+
 
   useEffect(() => {
     checkAuth()
@@ -20,7 +21,7 @@ const App = () => {
   return (
     <div>
         <Routes>
-          <Route path='/' element={authUser ? <HomePage /> : <Navigate to="/login" />} />
+          <Route path='/' element={authUser ? <HomePage  /> : <Navigate to="/login" />} />
           <Route path='/signup' element={!authUser ? <SignupPage /> : <Navigate to="/" />} />
           <Route path='/login' element={!authUser ? <LoginPage /> : <Navigate to="/" />} />
           <Route path='/settings' element={<SettingsPage />} />
