@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useChatStore } from '../store/useChatStore.js'
 // import { SidebarSkeleton } from './skeletons/SidebarSkeleton.jsx'
 import { useAuthStore } from '../store/useAuthStore.js'
+import { formatMessageDate } from '../lib/utils.js'
 
 const ConversationList = () => {
     const { getUsers, users, setSelectedUser, isUsersLoading, } = useChatStore()
@@ -16,13 +17,20 @@ const ConversationList = () => {
         ? users.filter(user => onlineUsers.includes(user._id))
         : users
 
+
+
+    const sortedUsers = [...filteredUsers].sort((a, b) => {
+        const dateA = new Date(a?.lastMessage?.createdAt || 0);
+        const dateB = new Date(b?.lastMessage?.createdAt || 0);
+        return dateB - dateA; // newest first
+    });
     //   if (isUsersLoading) return <SidebarSkeleton />
 
     return (
         <div className="conversation-list__rows">
 
             {/* MAIN BUTTON SHOWING ALL INFO */}
-            {filteredUsers.map((user) => (
+            {sortedUsers.map((user) => (
                 <button
                     key={user._id}
                     className="conversation-list__row"
@@ -48,9 +56,8 @@ const ConversationList = () => {
 
 
                             <div className="conversation-list__timestamp">
-                                {user.lastMessage?.createdAt
-                                    ? new Date(user.lastMessage.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-                                    : ''}
+                                {user.lastMessage?.createdAt ? formatMessageDate(user.lastMessage.createdAt) : ''}
+
                             </div>
 
                         </div>

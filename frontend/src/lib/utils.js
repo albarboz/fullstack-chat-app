@@ -21,7 +21,7 @@ export function formatMessageDate(dateString) {
     // Return full formatted date (e.g., March 23, 2024)
     return date.toLocaleDateString('en-US', {
       year: 'numeric',
-      month: 'long',
+      month: 'short',
       day: 'numeric',
     })
   }
