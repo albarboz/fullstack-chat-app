@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { useChatStore } from '../store/useChatStore.js'
 // import { SidebarSkeleton } from './skeletons/SidebarSkeleton.jsx'
 import { useAuthStore } from '../store/useAuthStore.js'
+import { useSocketStore } from '../store/useSocketStore.js'
+
 import { formatMessageDate } from '../lib/utils.js'
 import Highlight from './Highlight.jsx'
 
 const ConversationList = ({ searchTerm }) => {
-    const { getUsers, users, setSelectedUser, isUsersLoading, getMessages, messages, getAllMessages } = useChatStore()
-    const { onlineUsers } = useAuthStore()
+    const { getUsers, users, setSelectedUser, messages, getAllMessages } = useChatStore()
+    const { onlineUsers } = useSocketStore()
+
     const [showOnlineOnly, setShowOnlineOnly] = useState(false)
 
     useEffect(() => {
@@ -16,16 +19,15 @@ const ConversationList = ({ searchTerm }) => {
     }, [getUsers, getAllMessages])
 
 
-    // Step 1: Find matching messages
-    const filteredMessages = searchTerm
-        ? messages.filter(
-            (msg) =>
-                msg.text &&
-                msg.text.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-        : []
+    // console.log(messages)
 
-    // Step 2: Create a map of userId => matched message
+    // If the user has typed something into the search bar, go through all the messages and keep only the ones that have text and that text includes the search term (case-insensitive).
+    // But if the search bar is empty, just give me an empty list of messages.
+
+    const filteredMessages = searchTerm ? messages.filter((msg) => msg.text && msg.text.toLowerCase().includes(searchTerm.toLowerCase())) : messages
+
+
+    // For every message that matches the search, figure out who the other person is (not me), and if we haven’t already saved a match for them, store this message as their match.
     const matchedMessageMap = new Map()
     filteredMessages.forEach((msg) => {
         const otherUserId = msg.senderId === useAuthStore.getState().authUser._id
@@ -37,10 +39,12 @@ const ConversationList = ({ searchTerm }) => {
     })
 
     // Step 3: Filter users by name OR by matched messages
-    const filteredUsers = users.filter(user =>
-        user.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        matchedMessageMap.has(user._id)
-    )
+    const filteredUsers = searchTerm
+        ? users.filter(user => user.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            matchedMessageMap.has(user._id)) : users
+
+
+
 
     // Step 4: Sort by newest matched message or lastMessage
     const sortedUsers = [...filteredUsers].sort((a, b) => {

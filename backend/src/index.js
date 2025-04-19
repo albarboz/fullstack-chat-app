@@ -7,6 +7,8 @@ import { app, server } from "./lib/socket.js"
 import authRoutes from "./routes/auth.route.js"
 import messageRoutes from "./routes/message.route.js"
 import path from 'path'
+import userRoutes from "./routes/user.route.js"
+import contactRoutes from "./routes/contact.route.js"
 
 dotenv.config()
 
@@ -19,6 +21,9 @@ app.use(cors({ origin: "http://localhost:5173", credentials: true }))
 
 app.use("/api/auth", authRoutes)
 app.use("/api/messages", messageRoutes)
+app.use("/api/users", userRoutes)
+app.use('/api/contacts', contactRoutes);
+
 
 if(process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, '../frontend/dist')))

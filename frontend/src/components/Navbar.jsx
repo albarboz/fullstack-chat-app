@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useRef, useEffect } from 'react';
 // import { useAuthStore } from '../store/useAuthStore.js'
 import { LogOut, User, Settings, Menu, MessageCircleMore, Search } from 'lucide-react';
+import ContactRequestBadge from './ContactRequestBadge';
 
 
 const Navbar = ({ searchTerm, setSearchTerm }) => {
@@ -57,6 +58,7 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
                   <li><a href="/settings"><Settings />Settings</a></li>
                   <li><a href="/profile"><User />Profile</a></li>
                   <li><a href="/logout"><LogOut />Logout</a></li>
+                  <li><ContactRequestBadge /></li>
                 </ul>
               </div>
             )}
@@ -72,6 +74,7 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
             onChange={(e) => setSearchTerm(e.target.value)}
              />
           </div>
+          
         </div>
       </div>
     </header>

@@ -1,15 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useChatStore } from '../store/useChatStore.js'
-// import NoChatSelected from '../components/NoChatSelected.jsx'
-import ChatContainer from '../components/ChatContainer.jsx'
-import ConversationList from '../components/ConversationList.jsx'
+import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar.jsx'
-import { useEffect, useState } from 'react'
+import ConversationList from '../components/ConversationList.jsx'
+import ChatContainer from '../components/ChatContainer.jsx'
 
 const HomePage = () => {
   const { selectedUser } = useChatStore()
-    const [searchTerm, setSearchTerm] = useState('')
-  
+  const [searchTerm, setSearchTerm] = useState('')
+
 
   // APPLE SPECIFIC SECTION
   const setViewportHeight = () => {
@@ -33,13 +32,25 @@ const HomePage = () => {
 
   return (
     <div className='container homepage'>
-      <Navbar searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
+      <Navbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
       <div className='content-area'>
-        {selectedUser ? <ChatContainer searchTerm={searchTerm} /> : <ConversationList searchTerm={searchTerm}  />}
+        {selectedUser ? <ChatContainer searchTerm={searchTerm} /> : <ConversationList searchTerm={searchTerm} />}
       </div>
 
-      <button className="fixed-button">Click Me!</button>
+      <div className="container">
+        {/* Existing content */}
+        <div>
+          <Link to="/contacts/find">
+          </Link>
+        </div>
+      </div>
+      <button className="fixed-button">
+      <Link to="/contacts/find">
+      Find niggas
+      </Link>
+      </button>
+
     </div>
   )
 }
