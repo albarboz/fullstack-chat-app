@@ -424,14 +424,17 @@ p {
 .chat-header--cool__info h3 {
   font-size: 1.1rem;
   font-weight: 600;
-  margin-bottom: 0.15rem;
+  /* margin-bottom: 0.15rem; */
   letter-spacing: 0.5px;
   text-align: center;
+  margin-top: .5rem;
 }
 .chat-header--cool__info p {
   font-size: 0.85rem;
   color: #555;
   opacity: 0.9;
+  margin-top: .3rem;
+  margin-bottom: 0.7rem;
 }
 
 /* Close button with hover glow */
