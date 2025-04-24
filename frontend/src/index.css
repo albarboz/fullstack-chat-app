@@ -323,6 +323,8 @@ p {
   display: flex;
   flex-direction: column;
   height: 100%;            /* fill the parent (.content-area) */
+  padding-bottom: env(safe-area-inset-bottom);
+
 }
 
 .chat-container .chat-messages {
