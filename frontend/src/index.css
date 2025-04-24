@@ -50,6 +50,8 @@ img {
   height: 100vh;
   overflow: hidden;
   min-height: calc(var(--vh, 1vh) * 100);
+  padding: env(safe-area-inset-top) 1rem env(safe-area-inset-bottom);
+
   display: flex;
   flex-direction: column;
 }
