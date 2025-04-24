@@ -2,11 +2,7 @@ import { create } from 'zustand';
 import { io } from 'socket.io-client';
 import { devtools } from "zustand/middleware";
 
-
-
 const BASE_URL = import.meta.env.MODE === 'development' ? 'http://localhost:5002' : '/';
-
-
 
 export const useSocketStore = create(devtools((set, get) => ({
     socket: null,

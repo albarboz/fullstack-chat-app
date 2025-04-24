@@ -31,7 +31,7 @@ const App = () => {
     }
   }, [authUser])
 
-  if (isCheckingAuth) return null // option
+  if (isCheckingAuth) return null 
 
   return (
     <div>

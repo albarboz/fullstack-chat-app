@@ -32,24 +32,19 @@ const HomePage = () => {
 
   return (
     <div className='container homepage'>
+      <div className='navbar-container'>
       <Navbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-
+      </div>
       <div className='content-area'>
         {selectedUser ? <ChatContainer searchTerm={searchTerm} /> : <ConversationList searchTerm={searchTerm} />}
       </div>
 
-      <div className="container">
-        {/* Existing content */}
-        <div>
-          <Link to="/contacts/find">
-          </Link>
-        </div>
-      </div>
-      <button className="fixed-button">
+
+      {/* <button className="fixed-button">
       <Link to="/contacts/find">
       Find niggas
       </Link>
-      </button>
+      </button> */}
 
     </div>
   )

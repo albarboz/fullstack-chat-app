@@ -1,23 +1,17 @@
 import React from 'react'
 import { useState, useRef, useEffect } from 'react';
-// import { useAuthStore } from '../store/useAuthStore.js'
+import { useAuthStore } from '../store/useAuthStore.js'
 import { LogOut, User, Settings, Menu, MessageCircleMore, Search } from 'lucide-react';
 import ContactRequestBadge from './ContactRequestBadge';
-
 
 const Navbar = ({ searchTerm, setSearchTerm }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const modalRef = useRef(null)
   const menuButtonRef = useRef(null)
 
+  const { logout, authUser } = useAuthStore()
 
-
-  // const { logout, authUser } = useAuthStore()
-  const toggleModal = () => {
-    setIsModalOpen(prev => !prev)
-  };
-
-
+  const toggleModal = () => { setIsModalOpen(prev => !prev)}
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -37,9 +31,14 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
 
   }, [isModalOpen])
 
+  const handleLogout = (e) => {
+    e.preventDefault();
+    logout();
+    window.location.href = '/login';
+  };
 
   return (
-    <header>
+    <nav>
       <div className="container">
         <div className="navbar-left">
           {/* Wrap the menu button and modal in a container */}
@@ -54,10 +53,10 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
             {isModalOpen && (
               <div className="modal-content" ref={modalRef}>
                 <ul className="modal-menu">
-                  <li><a href="/" className='navbar-chat'><MessageCircleMore />Chats</a></li>
+                  <li><a href="/"><MessageCircleMore />Chats</a></li>
                   <li><a href="/settings"><Settings />Settings</a></li>
                   <li><a href="/profile"><User />Profile</a></li>
-                  <li><a href="/logout"><LogOut />Logout</a></li>
+                  <li><a href="/logout" onClick={handleLogout}><LogOut />Logout</a></li>
                   <li><ContactRequestBadge /></li>
                 </ul>
               </div>
@@ -66,18 +65,17 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
           {/* Search bar remains next to the menu */}
           <div className='search-container'>
             <Search size={18} className='search-icon' />
-            <input 
-            type="text"
-            className="search-bar" 
-            placeholder="Search..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-             />
+            <input
+              type="text"
+              className="search-bar"
+              placeholder="Search..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
           </div>
-          
         </div>
       </div>
-    </header>
+    </nav>
 
   )
 }

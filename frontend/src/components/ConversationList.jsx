@@ -8,15 +8,15 @@ import { formatMessageDate } from '../lib/utils.js'
 import Highlight from './Highlight.jsx'
 
 const ConversationList = ({ searchTerm }) => {
-    const { getUsers, users, setSelectedUser, messages, getAllMessages } = useChatStore()
+    const { fetchChatUsers, users, openChatWithUser, messages, fetchAllMessages } = useChatStore()
     const { onlineUsers } = useSocketStore()
 
-    const [showOnlineOnly, setShowOnlineOnly] = useState(false)
+    // const [showOnlineOnly, setShowOnlineOnly] = useState(false)
 
     useEffect(() => {
-        getUsers()
-        getAllMessages()
-    }, [getUsers, getAllMessages])
+        fetchChatUsers()
+        fetchAllMessages()
+    }, [fetchChatUsers, fetchAllMessages])
 
 
     // console.log(messages)
@@ -68,7 +68,7 @@ const ConversationList = ({ searchTerm }) => {
                 <button
                     key={user._id}
                     className="conversation-list__row"
-                    onClick={() => setSelectedUser(user)}
+                    onClick={() => openChatWithUser(user)}
                 >
 
                     {/* PROFILE PIC/AVATAR SECTION */}

@@ -7,7 +7,7 @@ const MessageInput = () => {
   const [text, setText] = useState('')
   const [imagePreview, setImagePreview] = useState(null)
   const fileInputRef = useRef(null)
-  const { sendMessage } = useChatStore()
+  const { sendChatMessage } = useChatStore()
 
   const handleImageChange = (e) => {
     const file = e.target.files[0]
@@ -27,11 +27,11 @@ const MessageInput = () => {
     if (fileInputRef.current) fileInputRef.current.value = ''
   }
 
-  const handleSendMessage = async (e) => {
+  const handleSendChatMessage = async (e) => {
     e.preventDefault()
     if (!text.trim() && !imagePreview) return
     try {
-      await sendMessage({
+      await sendChatMessage({
         text: text.trim(),
         image: imagePreview
       })
@@ -44,18 +44,16 @@ const MessageInput = () => {
   }
 
   return (
-    <div className='p-4 w-full max-w-md mx-auto'>
+    <div>
       {imagePreview && (
-        <div className='mb-3 flex items-center gap-2'>
-          <div className='relative'>
+        <div>
+          <div>
             <img
               src={imagePreview}
               alt='Preview'
-              className='w-20 h-20 object-cover rounded-lg border border-zinc-700'
             />
             <button
               onClick={removeImage}
-              className='absolute -top-2 -right-2 w-6 h-6 rounded-full bg-base-300 flex items-center justify-center'
               type='button'
             >
               <X size={14} />
@@ -63,10 +61,9 @@ const MessageInput = () => {
           </div>
         </div>
       )}
-      <form onSubmit={handleSendMessage} className='flex items-center gap-2'>
+      <form onSubmit={handleSendChatMessage}>
         <input
           type="text"
-          className='flex-1 input input-bordered rounded-lg input-sm sm:input-md text-base'
           placeholder='Type a message...'
           value={text}
           onChange={(e) => setText(e.target.value)}

@@ -5,18 +5,109 @@ import { getReceiverSocketId } from "../lib/socket.js";
 import { io } from "../lib/socket.js";
 import Contact from "../models/contact.model.js"
 
+
+
+export const getMessages = async (req, res) => {
+  try {
+    const { id: userToChatId } = req.params
+    const { cursor, limit = 5 } = req.query
+
+    console.log('[getMessages] cursor=', cursor, 'limit=', limit);
+
+    const myId = req.user._id
+    const filter = {
+      $or: [
+        { senderId: myId, receiverId: userToChatId },
+        { senderId: userToChatId, receiverId: myId }
+      ]
+    }
+
+    // If a cursor (ISO timestamp) is passed, only get older messages
+    if (cursor) {
+      filter.createdAt = { $lt: new Date(cursor) }
+    }
+
+    // Query sorted newest→oldest, limited to `limit`
+    const messages = await Message.find(filter)
+      .sort({ createdAt: -1 })
+      .limit(parseInt(limit, 10))
+      .select("text image createdAt senderId receiverId")
+      .lean()
+
+    // flip to oldest→newest
+    messages.reverse()
+
+    // If we got a full “page,” use the last message’s timestamp as nextCursor
+    const nextCursor =
+      messages.length === parseInt(limit, 10)
+        ? messages[messages.length - 1].createdAt.toISOString()
+        : null;
+
+    return res.status(200).json({ messages: messages, nextCursor });
+  } catch (error) {
+    console.log("Error in getMessages controller", error.message)
+    res.status(500).json({ message: "Internal Service Error" })
+  }
+}
+
+export const getAllMessages = async (req, res) => {
+  try {
+    const messages = await Message.find().sort({ createdAt: -1 });
+    res.status(200).json(messages);
+  } catch (err) {
+    console.error('Error in getAllMessages', err);
+    res.status(500).json({ message: "Failed to fetch messages." });
+  }
+}
+
+export const sendMessage = async (req, res) => {
+  try {
+    const { text, image } = req.body
+    const { id: receiverId } = req.params
+    const senderId = req.user._id
+
+    let imageUrl
+    if (image) {
+      // Calculate file size from base64 (rough estimate)
+      const imageSizeInBytes = Buffer.byteLength(image, 'base64');
+      const maxSize = 10485760; // 10MB in bytes
+
+      if (imageSizeInBytes > maxSize) {
+        return res.status(400).json({ message: "File size too large. Max is 10MB." });
+      }
+
+      const uploadResponse = await cloudinary.uploader.upload(image);
+      imageUrl = uploadResponse.secure_url;
+    }
+
+    const newMessage = new Message({ senderId, receiverId, text, image: imageUrl })
+    await newMessage.save()
+
+    const receiverSocketId = getReceiverSocketId(receiverId)
+    if (receiverSocketId) {
+      io.to(receiverSocketId).emit('newMessage', newMessage)
+    }
+
+    res.status(201).json(newMessage)
+  } catch (error) {
+    console.log("Error in sendMessage controller", error.message)
+    res.status(500).json({ message: "Internal Service Error" })
+  }
+}
+
+
+// This is used for the ConversationList component,
+// You check your list of accepted friends, 
+// fetch each one’s most recent message, 
+// and assemble profile cards showing that preview for your contacts list.
 export const getUsersForConvoList = async (req, res) => {
   try {
     const loggedInUserId = req.user._id;
-    // Fetch all users except the logged-in one.
-    // const filteredUsers = await User.find({ _id: { $ne: loggedInUserId } }).select("-password");
-
 
     const contacts = await Contact.find({
       userId: loggedInUserId,
       status: "accepted"
     });
-
 
     // Extract contact IDs
     const contactIds = contacts.map(contact => contact.contactId);
@@ -25,7 +116,6 @@ export const getUsersForConvoList = async (req, res) => {
     const contactUsers = await User.find({
       _id: { $in: contactIds }
     }).select("-password");
-
 
     // For each user, find the latest message between them and the logged-in user.
     const usersWithLastMessage = await Promise.all(
@@ -51,82 +141,3 @@ export const getUsersForConvoList = async (req, res) => {
     res.status(500).json({ message: "Internal Service Error" });
   }
 };
-
-
-
-
-export const getMessages = async (req, res) => {
-  try {
-    const { id: userToChatId } = req.params
-    const myId = req.user._id
-
-    const messages = await Message.find({
-      $or: [
-        { senderId: myId, receiverId: userToChatId },
-        { senderId: userToChatId, receiverId: myId }
-      ]
-    })
-
-
-    .sort({ createdAt: -1 })
-    .select("text image createdAt senderId receiverId") // Fetch only required fields
-    .lean(); // Optimize for read-only
-
-    res.status(200).json(messages)
-  } catch (error) {
-    console.log("Error in getMessages controller", error.message)
-    res.status(500).json({ message: "Internal Service Error" })
-
-  }
-}
-
-export const getAllMessages = async (req, res) => {
-  try {
-    const messages = await Message.find().sort({ createdAt: -1 });
-    res.status(200).json(messages);
-  } catch (err) {
-    res.status(500).json({ message: "Failed to fetch messages." });
-  }
-}
-
-
-export const sendMessage = async (req, res) => {
-  try {
-    const { text, image } = req.body
-    const { id: receiverId } = req.params
-    const senderId = req.user._id
-
-    let imageUrl
-    if (image) {
-      // Calculate file size from base64 (rough estimate)
-      const imageSizeInBytes = Buffer.byteLength(image, 'base64');
-      const maxSize = 10485760; // 10MB in bytes
-
-      if (imageSizeInBytes > maxSize) {
-        return res.status(400).json({ message: "File size too large. Maximum allowed is 10MB." });
-      }
-
-      const uploadResponse = await cloudinary.uploader.upload(image);
-      imageUrl = uploadResponse.secure_url;
-    }
-
-    const newMessage = new Message({
-      senderId,
-      receiverId,
-      text,
-      image: imageUrl,
-    })
-
-    await newMessage.save()
-
-    const receiverSocketId = getReceiverSocketId(receiverId)
-    if (receiverSocketId) {
-      io.to(receiverSocketId).emit('newMessage', newMessage)
-    }
-
-    res.status(201).json(newMessage)
-  } catch (error) {
-    console.log("Error in sendMessage controller", error.message)
-    res.status(500).json({ message: "Internal Service Error" })
-  }
-}

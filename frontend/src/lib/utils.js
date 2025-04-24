@@ -5,8 +5,6 @@ export function formatMessageTime(date) {
     });
   }
 
-
-
 export function formatMessageDate(dateString) {
   const date = new Date(dateString)
   const now = new Date()

@@ -1,6 +1,5 @@
 import { create } from 'zustand';
 import { devtools } from "zustand/middleware";
-
 import { axiosInstance } from '../lib/axios.js';
 import toast from 'react-hot-toast';
 
@@ -9,7 +8,7 @@ export const useContactStore = create(devtools((set, get) => ({
   contactRequests: [],
   isLoading: false,
 
-  getContacts: async () => {
+  fetchContacts: async () => {
     set({ isLoading: true });
     try {
       const res = await axiosInstance.get('/contacts');
@@ -21,7 +20,7 @@ export const useContactStore = create(devtools((set, get) => ({
     }
   },
 
-  getContactRequests: async () => {
+  fetchContactRequests: async () => {
     set({ isLoading: true });
     try {
       const res = await axiosInstance.get('/contacts/requests');
@@ -46,8 +45,8 @@ export const useContactStore = create(devtools((set, get) => ({
     try {
       await axiosInstance.post(`/contacts/accept/${requestId}`);
       toast.success('Contact request accepted');
-      get().getContactRequests();
-      get().getContacts();
+      get().fetchContactRequests();
+      get().fetchContacts();
     } catch (error) {
       toast.error(error.response?.data?.message || 'Failed to accept contact request');
     }
@@ -57,7 +56,7 @@ export const useContactStore = create(devtools((set, get) => ({
     try {
       await axiosInstance.post(`/contacts/reject/${requestId}`);
       toast.success('Contact request rejected');
-      get().getContactRequests();
+      get().fetchContactRequests();
     } catch (error) {
       toast.error(error.response?.data?.message || 'Failed to reject contact request');
     }

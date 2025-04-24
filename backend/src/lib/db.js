@@ -3,7 +3,7 @@ import mongoose from "mongoose"
 export const connectDB = async () => {
     try {
         const conn = await mongoose.connect(process.env.MONGODB_URI, {
-            maxPoolSize: 10, // Set connection pool size
+            maxPoolSize: 10,
         });
         console.log(`MongoDB connected: ${conn.connection.host}`);
     } catch (error) {

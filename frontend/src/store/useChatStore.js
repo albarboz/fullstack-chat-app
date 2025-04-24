@@ -8,12 +8,14 @@ import { useSocketStore } from './useSocketStore.js' // ✅ NEW: import the corr
 
 export const useChatStore = create(devtools((set, get) => ({
     messages: [],
+    nextCursor: null,
     users: [],
     selectedUser: null,
     isUsersLoading: false,
     isMessagesLoading: false,
 
-    getUsers: async () => {
+
+    fetchChatUsers: async () => {
         set({ isUsersLoading: true })
         try {
             const res = await axiosInstance.get('/messages/users')
@@ -25,14 +27,24 @@ export const useChatStore = create(devtools((set, get) => ({
         }
     },
 
-    getMessages: async (userId) => {
-        set({ isMessagesLoading: true })
-        try {
-            // console.log(`Fetching messages for user ${userId}...`)
-            const res = await axiosInstance.get(`/messages/${userId}`)
+    openChatWithUser: (user) => {
+        set({ selectedUser: user, messages: [], nextCursor: null });
+    },
 
-            // console.log('Messages API response:', res)
-            set({ messages: res.data })
+    loadChatHistory: async (userId, cursor = null) => {
+        set({ isMessagesLoading: true })
+
+        try {
+            const res = await axiosInstance.get(`/messages/${userId}`, {
+                params: { limit: 10, cursor }
+            })
+
+            const { messages: page, nextCursor } = res.data;
+
+            set(state => ({
+                messages: cursor ? [...page, ...state.messages] : page,
+                nextCursor
+            }));
         } catch (error) {
             toast.error(error.response.data.message);
         } finally {
@@ -41,7 +53,13 @@ export const useChatStore = create(devtools((set, get) => ({
 
     },
 
-    getAllMessages: async () => {
+    loadMoreMessages: () => {
+        const { selectedUser, nextCursor } = get();
+        if (!nextCursor) return;
+        return get().loadChatHistory(selectedUser._id, nextCursor);
+    },
+
+    fetchAllMessages: async () => {
         set({ isMessagesLoading: true })
         try {
             const res = await axiosInstance.get(`/messages`) // all messages route
@@ -53,37 +71,35 @@ export const useChatStore = create(devtools((set, get) => ({
         }
     },
 
-    sendMessage: async (messageData) => {
+    sendChatMessage: async (messageData) => {
         const { selectedUser, messages } = get()
         try {
             const res = await axiosInstance.post(`/messages/send/${selectedUser._id}`, messageData)
             set({ messages: [...messages, res.data] })
         } catch (error) {
-            toast.error(error.response.data.message)
+            toast.error(error.response?.data?.message || error.message);
         }
     },
 
-    subscribeToMessages: () => {
+    listenForIncomingMessages: () => {
         const { selectedUser } = get()
         const { socket, onMessage } = useSocketStore.getState() // ✅ FIXED: use new socket store
-    
+
         if (!selectedUser || !socket?.connected) return
-    
+
         onMessage((newMessage) => {
-          const isMessageSentFromSelectedUser = newMessage.senderId === selectedUser._id
-          if (!isMessageSentFromSelectedUser) return
-    
-          set({
-            messages: [...get().messages, newMessage],
-          })
+            const isMessageSentFromSelectedUser = newMessage.senderId === selectedUser._id
+            if (!isMessageSentFromSelectedUser) return
+
+            set({
+                messages: [...get().messages, newMessage],
+            })
         })
     },
 
-    unsubscribeFromMessages: () => {
+    stopListeningForMessages: () => {
         const { offMessage } = useSocketStore.getState() // ✅ FIXED: use new socket store
         offMessage()
     },
 
-    setSelectedUser: (selectedUser) => set({ selectedUser }),
-
-}), { name: 'ChatStore'}))
+}), { name: 'ChatStore' }))

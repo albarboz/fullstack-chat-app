@@ -2,82 +2,78 @@ import { useChatStore } from "../store/useChatStore.js"
 import { useEffect, useRef } from "react"
 import ChatHeader from "./ChatHeader.jsx"
 import MessageInput from "./MessageInput.jsx"
-import MessageSkeleton from "./skeletons/MessageSkeleton.jsx"
 import { useAuthStore } from "../store/useAuthStore.js"
 import { formatMessageTime } from "../lib/utils.js"
 import Highlight from "./Highlight.jsx"
 
 
 const ChatContainer = ({ searchTerm }) => {
-  const { messages, getMessages, isMessagesLoading, selectedUser, subscribeToMessages, unsubscribeFromMessages } = useChatStore()
+  const { messages, loadChatHistory, selectedUser, listenForIncomingMessages, stopListeningForMessages } = useChatStore()
   const { authUser } = useAuthStore()
-  const messageEndRef = useRef(null)
+
 
   useEffect(() => {
-    getMessages(selectedUser._id)
-    subscribeToMessages()
+    loadChatHistory(selectedUser._id)
+    listenForIncomingMessages()
 
-    return () => unsubscribeFromMessages()
-  }, [selectedUser._id, getMessages, subscribeToMessages, unsubscribeFromMessages])
+    return () => stopListeningForMessages()
+  }, [selectedUser._id, loadChatHistory, listenForIncomingMessages, stopListeningForMessages])
 
-  useEffect(() => {
-    if (messageEndRef.current && messages) {
-      messageEndRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
-    }
-  }, [messages])
 
-    // Filter messages based on the search term
-    const filteredMessages = searchTerm
+  // Filter messages based on the search term
+  const filteredMessages = searchTerm
     ? messages.filter(message =>
-        message.text &&
-        message.text.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+      message.text &&
+      message.text.toLowerCase().includes(searchTerm.toLowerCase())
+    )
     : messages;
 
 
   return (
     <div className="chat-container">
       <ChatHeader />
-      <div>
+
+      {/* Chat Messages */}
+      <div className="chat-messages">
         {filteredMessages.map((message) => (
           <div
             key={message._id}
-            className={`chat ${message.senderId === authUser._id ? 'chat-end' : 'chat-start'}`}
-            ref={messageEndRef}
+            className={`chat-message ${message.senderId === authUser._id ? 'chat-end' : 'chat-start'}`}
           >
 
-            <div className="">
-              <div className="">
-                <img
-                  src={message.senderId === authUser._id ? authUser.profilePic || '/avatar.png' :
-                    selectedUser.profilePic || '/avatar.png'}
-                  alt="profile pic"
-
-                />
-              </div>
+            {/* Avatar */}
+            <div>
+              <img
+                src={message.senderId === authUser._id ? authUser.profilePic || '/avatar.png' :
+                  selectedUser.profilePic || '/avatar.png'}
+                alt="profile pic"
+              />
             </div>
 
-            <div className="chat-header mb-1 text-xs sm:text-sm text-gray-500 flex items-center">
+            {/* Time */}
+            <div>
               <time className="text-xs opacity-50 ml-1">
-                <time className="ml-2 opacity-70">{formatMessageTime(message.createdAt)}</time>
+                <time>{formatMessageTime(message.createdAt)}</time>
               </time>
             </div>
 
-            <div className="chat-bubble flex flex-col rounded-md max-w-[85%] sm:max-w-[65%] ">
+            {/* Message and Image */}
+            <div>
               {message.image && (
                 <img
                   src={message.image}
                   alt="Attachment"
-                  className="max-w-[120px] sm:max-w-[200px] rounded-sm mb-1 sm:mb-2 mt-1 sm:mt-2"
                 />
               )}
-              {message.text && <p className="text-sm sm:text-base"><Highlight text={message.text} highlight={searchTerm} /></p>}
+              {message.text && <p><Highlight text={message.text} highlight={searchTerm} /></p>}
             </div>
           </div>
         ))}
       </div>
 
-      <MessageInput />
+      <div className="message-input-wrapper">
+        <MessageInput />
+      </div>
 
     </div>
   )

@@ -19,37 +19,36 @@ const LoginPage = () => {
   }
 
   return (
-    <div className="min-h-screen grid lg:grid-cols-2">
+    <div>
 
       {/* Left side */}
-      <div className="flex flex-col justify-center items-center p-6 sm:p-12">
-        <div className="w-full max-w-md space-y-8">
+      <div>
+        <div>
 
           {/* LOGO */}
-          <div className="text-center mb-8">
-            <div className="flex flex-col items-center gap-2 group">
-              <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                <MessageSquare className="size-6 text-primary" />
+          <div>
+            <div>
+              <div>
+                <MessageSquare />
               </div>
-              <h1 className="text-2xl font-bold mt-2">Welcome Back</h1>
-              <p className="text-base-content/60">Sign in to your account</p>
+              <h1>Welcome Back</h1>
+              <p>Sign in to your account</p>
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit}>
 
             {/* Email input */}
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text font-medium">Email</span>
+            <div>
+              <label>
+                <span>Email</span>
               </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
-                  <Mail className="size-5 text-base-content/40" />
+              <div>
+                <div>
+                  <Mail />
                 </div>
                 <input
                   type="email"
-                  className="input input-bordered w-full pl-10 bg-transparent text-base focus:outline-none focus:ring-2 focus:ring-primary"
                   placeholder="you@example.com"
                   value={formData.email}
                   autoComplete="email"
@@ -61,17 +60,16 @@ const LoginPage = () => {
             </div>
 
             {/* Password input  */}
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text font-medium">Password</span>
+            <div>
+              <label>
+                <span>Password</span>
               </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="w-5 h-5 text-base-content/40" />
+              <div>
+                <div>
+                  <Lock />
                 </div>
                 <input
                   type={showPassword ? 'text' : 'password'}
-                  className={`input input-bordered w-full pl-10 bg-transparent text-base focus:outline-none focus:ring-2 focus:ring-primary`}
                   placeholder="••••••••"
                   value={formData.password}
                   autoComplete="current-password"
@@ -81,13 +79,12 @@ const LoginPage = () => {
                 />
                 <button
                   type="button"
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center h-full"
                   // ARIA label improves accessibility by describing the button's function.
                   onClick={() => setShowPassword(!showPassword)}>
                   {showPassword ? (
-                    <EyeOff className="size-5 text-base-content/40" />
+                    <EyeOff />
                   ) : (
-                    <Eye className="size-5 text-base-content/40" />
+                    <Eye />
                   )}
                 </button>
               </div>
@@ -96,12 +93,11 @@ const LoginPage = () => {
             {/* Submit button */}
             <button
               type="submit"
-              className="btn btn-primary w-full py-2"
               disabled={isLoggingIn}
             >
               {isLoggingIn ? (
                 <>
-                  <Loader2 className="size-5 animate-spin" />
+                  <Loader2 />
                   Loading...
                 </>
               ) : (
@@ -110,10 +106,10 @@ const LoginPage = () => {
             </button>
           </form>
 
-          <div className="text-center">
-            <p className="text-base-content/60">
+          <div>
+            <p>
               Don&apos;t have an account?{" "}
-              <Link to="/signup" className="link link-primary">
+              <Link to="/signup">
                 Create account
               </Link>
             </p>

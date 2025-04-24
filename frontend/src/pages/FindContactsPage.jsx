@@ -28,20 +28,19 @@ const FindContactsPage = () => {
   };
   
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-6">Find New Contacts</h1>
+    <div>
+      <h1>Find New Contacts</h1>
       
-      <form onSubmit={handleSearch} className="flex gap-2 mb-6">
+      <form onSubmit={handleSearch}>
         <input
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search by name or email"
-          className="input input-bordered flex-1"
         />
-        <button type="submit" className="btn btn-primary" disabled={isSearching}>
+        <button type="submit" disabled={isSearching}>
           {isSearching ? (
-            <span className="loading loading-spinner loading-sm"></span>
+            <span></span>
           ) : (
             <>
               <Search className="size-4" />
@@ -52,24 +51,23 @@ const FindContactsPage = () => {
       </form>
       
       {searchResults.length > 0 ? (
-        <div className="space-y-4">
+        <div>
           {searchResults.map((user) => (
-            <div key={user._id} className="bg-base-200 p-4 rounded-lg flex items-center justify-between">
-              <div className="flex items-center gap-4">
+            <div key={user._id}>
+              <div>
                 <img
                   src={user.profilePic || '/avatar.png'}
                   alt={user.fullName}
-                  className="size-12 rounded-full object-cover"
                 />
                 <div>
-                  <h3 className="font-medium">{user.fullName}</h3>
-                  <p className="text-sm text-gray-500">{user.email}</p>
+                  <h3>{user.fullName}</h3>
+                  <p>{user.email}</p>
                 </div>
               </div>
               
               <button
                 onClick={() => sendContactRequest(user._id)}
-                className="btn btn-sm btn-primary gap-1"
+                
               >
                 <UserPlus className="size-4" />
                 Add Contact
@@ -79,8 +77,8 @@ const FindContactsPage = () => {
         </div>
       ) : (
         searchQuery && !isSearching && (
-          <div className="text-center p-8">
-            <p className="text-gray-500">No users found matching "{searchQuery}"</p>
+          <div>
+            <p>No users found matching "{searchQuery}"</p>
           </div>
         )
       )}
