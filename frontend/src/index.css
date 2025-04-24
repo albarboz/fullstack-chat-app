@@ -47,14 +47,11 @@ img {
 
 /* HOMEPAGE SECTION START */
 .homepage {
-  height: 100vh;
+  /* height: 100vh; */
   overflow: hidden;
-  min-height: calc(var(--vh, 1vh) * 100);
-  padding: env(safe-area-inset-top) 1rem env(safe-area-inset-bottom);
-
+  height: calc(var(--vh, 1vh) * 100);
   display: flex;
   /* Safari 15.4+ – this adjusts as the toolbar shows/hides */
-  height: 100dvh;
 
   flex-direction: column;
 }

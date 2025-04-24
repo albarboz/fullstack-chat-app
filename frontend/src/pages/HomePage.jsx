@@ -12,11 +12,15 @@ const HomePage = () => {
 
   // APPLE SPECIFIC SECTION
   const setViewportHeight = () => {
-    const vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    document.documentElement.style.setProperty(
+      '--vh',
+       `${window.innerHeight * 0.01}px`
+    );
   };
-
-  window.addEventListener('resize', setViewportHeight);
+  
+  ['resize','scroll','orientationchange'].forEach(evt =>
+    window.addEventListener(evt, setViewportHeight)
+  );
   setViewportHeight();
 
   useEffect(() => {
