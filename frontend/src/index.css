@@ -53,6 +53,9 @@ img {
   padding: env(safe-area-inset-top) 1rem env(safe-area-inset-bottom);
 
   display: flex;
+  /* Safari 15.4+ – this adjusts as the toolbar shows/hides */
+  height: 100dvh;
+
   flex-direction: column;
 }
 
@@ -324,18 +327,23 @@ p {
 .chat-container {
   display: flex;
   flex-direction: column;
-  height: 100%;            /* fill the parent (.content-area) */
+  height: 100%;
+  /* fill the parent (.content-area) */
   padding-bottom: env(safe-area-inset-bottom);
 
 }
 
 .chat-container .chat-messages {
-  flex: 1;                  /* take all remaining space */
-  overflow-y: auto;         /* scroll only this region */
-  padding: 1rem;            /* optional spacing */
+  flex: 1;
+  /* take all remaining space */
+  overflow-y: auto;
+  /* scroll only this region */
+  padding: 1rem;
+  /* optional spacing */
 }
 
 .chat-container .message-input-wrapper {
-  flex-shrink: 0;           /* never shrink, always sit at bottom */
+  flex-shrink: 0;
+  /* never shrink, always sit at bottom */
   /* if MessageInput already has a wrapper div, give it this class */
 }
