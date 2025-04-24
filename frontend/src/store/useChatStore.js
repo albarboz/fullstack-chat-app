@@ -14,6 +14,7 @@ export const useChatStore = create(devtools((set, get) => ({
     isUsersLoading: false,
     isMessagesLoading: false,
 
+    clearSelectedUser: () => set({ selectedUser: null }),
 
     fetchChatUsers: async () => {
         set({ isUsersLoading: true })

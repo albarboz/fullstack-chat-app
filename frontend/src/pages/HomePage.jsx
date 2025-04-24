@@ -6,7 +6,7 @@ import ConversationList from '../components/ConversationList.jsx'
 import ChatContainer from '../components/ChatContainer.jsx'
 
 const HomePage = () => {
-  const { selectedUser } = useChatStore()
+  const { selectedUser, clearSelectedUser } = useChatStore()
   const [searchTerm, setSearchTerm] = useState('')
 
 
@@ -14,11 +14,11 @@ const HomePage = () => {
   const setViewportHeight = () => {
     document.documentElement.style.setProperty(
       '--vh',
-       `${window.innerHeight * 0.01}px`
+      `${window.innerHeight * 0.01}px`
     );
   };
-  
-  ['resize','scroll','orientationchange'].forEach(evt =>
+
+  ['resize', 'scroll', 'orientationchange'].forEach(evt =>
     window.addEventListener(evt, setViewportHeight)
   );
   setViewportHeight();
@@ -37,7 +37,11 @@ const HomePage = () => {
   return (
     <div className='container homepage'>
       <div className='navbar-container'>
-      <Navbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <Navbar
+          showBack={Boolean(selectedUser)}
+          onBack={clearSelectedUser}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm} />
       </div>
       <div className='content-area'>
         {selectedUser ? <ChatContainer searchTerm={searchTerm} /> : <ConversationList searchTerm={searchTerm} />}

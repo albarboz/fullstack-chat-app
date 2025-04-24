@@ -31,7 +31,7 @@ const ChatContainer = ({ searchTerm }) => {
 
   return (
     <div className="chat-container">
-      <ChatHeader />
+      {/* <ChatHeader /> */}
 
       {/* Chat Messages */}
       <div className="chat-messages">

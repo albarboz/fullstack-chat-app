@@ -1,17 +1,18 @@
 import React from 'react'
 import { useState, useRef, useEffect } from 'react';
 import { useAuthStore } from '../store/useAuthStore.js'
-import { LogOut, User, Settings, Menu, MessageCircleMore, Search } from 'lucide-react';
+import { ArrowLeft, LogOut, User, Settings, Menu, MessageCircleMore, Search } from 'lucide-react';
 import ContactRequestBadge from './ContactRequestBadge';
+import ChatHeader from './ChatHeader.jsx';
 
-const Navbar = ({ searchTerm, setSearchTerm }) => {
+const Navbar = ({ showBack = false, onBack, searchTerm, setSearchTerm }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const modalRef = useRef(null)
   const menuButtonRef = useRef(null)
 
   const { logout, authUser } = useAuthStore()
 
-  const toggleModal = () => { setIsModalOpen(prev => !prev)}
+  const toggleModal = () => { setIsModalOpen(prev => !prev) }
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -28,7 +29,6 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
 
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
-
   }, [isModalOpen])
 
   const handleLogout = (e) => {
@@ -41,38 +41,54 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
     <nav>
       <div className="container">
         <div className="navbar-left">
-          {/* Wrap the menu button and modal in a container */}
-          <div className="menu-container">
-            <button
-              className={`menu-button ${isModalOpen ? 'active' : ''}`}
-              onClick={toggleModal}
-              ref={menuButtonRef}
-            >
-              <Menu size={24} />
-            </button>
-            {isModalOpen && (
-              <div className="modal-content" ref={modalRef}>
-                <ul className="modal-menu">
-                  <li><a href="/"><MessageCircleMore />Chats</a></li>
-                  <li><a href="/settings"><Settings />Settings</a></li>
-                  <li><a href="/profile"><User />Profile</a></li>
-                  <li><a href="/logout" onClick={handleLogout}><LogOut />Logout</a></li>
-                  <li><ContactRequestBadge /></li>
-                </ul>
-              </div>
-            )}
-          </div>
-          {/* Search bar remains next to the menu */}
-          <div className='search-container'>
-            <Search size={18} className='search-icon' />
-            <input
-              type="text"
-              className="search-bar"
-              placeholder="Search..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
+          {showBack ? (
+            <div className="menu-container">
+              <button className="back-button" onClick={onBack}>
+                <ArrowLeft size={24} />
+              </button>
+            </div>
+
+
+          ) : (
+            <div className="menu-container">
+              <button
+                className={`menu-button ${isModalOpen ? 'active' : ''}`}
+                onClick={toggleModal}
+                ref={menuButtonRef}
+              >
+                <Menu size={24} />
+              </button>
+              {isModalOpen && (
+                <div className="modal-content" ref={modalRef}>
+                  <ul className="modal-menu">
+                    <li><a href="/"><MessageCircleMore />Chats</a></li>
+                    <li><a href="/settings"><Settings />Settings</a></li>
+                    <li><a href="/profile"><User />Profile</a></li>
+                    <li><a href="/logout" onClick={handleLogout}><LogOut />Logout</a></li>
+                    <li><ContactRequestBadge /></li>
+                  </ul>
+                </div>
+              )}
+            </div>
+
+          )}
+          {!showBack ? (
+            <div className="search-container">
+              <Search size={18} className="search-icon" />
+              <input
+                type="text"
+                className="search-bar"
+                placeholder="Search..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+          ) : (
+              <ChatHeader />  
+
+          )}
+
+
         </div>
       </div>
     </nav>
