@@ -44,7 +44,7 @@ const MessageInput = () => {
   }
 
   return (
-    <div>
+    <div className='message-input-container'>
       {imagePreview && (
         <div>
           <div>
@@ -61,6 +61,7 @@ const MessageInput = () => {
           </div>
         </div>
       )}
+
       <form onSubmit={handleSendChatMessage}>
         <input
           type="text"

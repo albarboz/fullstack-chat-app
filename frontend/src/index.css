@@ -33,7 +33,7 @@ img {
 }
 
 .container {
-  width: 97%;
+  width: 100%;
   max-width: 500px;
   margin: 0 auto;
   position: relative;
@@ -62,10 +62,12 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  /* width: 97%; */
 }
 
 .navbar-container {
   flex-shrink: 0;
+  width: 98%;
 }
 
 
@@ -335,12 +337,116 @@ p {
   /* take all remaining space */
   overflow-y: auto;
   /* scroll only this region */
-  padding: 1rem;
+  /* padding: 1rem; */
   /* optional spacing */
+  scrollbar-width: none;
 }
 
 .chat-container .message-input-wrapper {
   flex-shrink: 0;
   /* never shrink, always sit at bottom */
   /* if MessageInput already has a wrapper div, give it this class */
+}
+
+
+
+
+
+
+
+
+
+
+/* Glassmorphic, soft-shadow header */
+.chat-header--cool {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0rem 1rem;
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 0 0 16px 16px;
+  z-index: 10;
+}
+
+/* Avatar with neon glow ring */
+.chat-header--cool__avatar {
+  position: relative;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 1rem;
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+.chat-header--cool__avatar:hover {
+  transform: scale(1.05);
+}
+
+.chat-header--cool__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Pulsing status indicator */
+.status-indicator {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(255,255,255,0.8);
+  border-radius: 50%;
+}
+.status-indicator.online {
+  background: #4cdc4c;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+.status-indicator.offline {
+  background: #aaa;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%       { transform: scale(1.4); opacity: 0.6; }
+}
+
+/* Info section with subtle typography */
+.chat-header--cool__info {
+  flex: 1;
+  color: #222;
+}
+.chat-header--cool__info h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.15rem;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+.chat-header--cool__info p {
+  font-size: 0.85rem;
+  color: #555;
+  opacity: 0.9;
+}
+
+/* Close button with hover glow */
+.chat-header--cool__close {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.chat-header--cool__close:hover {
+  box-shadow: 0 0 8px rgba(0,0,0,0.15);
+  transform: rotate(90deg);
 }
