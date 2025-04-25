@@ -125,6 +125,11 @@ nav {
 
 }
 
+.menu-button:hover {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+
+}
+
 .back-button {
   background: none;
   background-color: transparent;
@@ -146,6 +151,10 @@ nav {
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
+.back-button:hover {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+}
+
 .menu-button.active {
   background-color: rgba(0, 0, 0, 0.1);
 }
@@ -161,20 +170,24 @@ nav {
 
 .search-icon {
   position: absolute;
-  left: 10px;
   z-index: 1;
   pointer-events: none;
   /* Ensure clicks pass through to the input */
+  left: 14px;
 }
 
+
+
 .search-bar {
-  padding: .5em 0.5em 0.33em 2.2em;
+  padding: .5em 0.5em 0.33em 2.5em;
   /* Adjust left padding to accommodate icon */
   border: 1px solid #ccc;
   border-radius: 100px;
-  font-size: 1.3rem;
+  font-size: 1rem;
   width: 100%;
   box-sizing: border-box;
+  height: 45px;
+
 }
 
 /* Dropdown Modal Content */
@@ -182,11 +195,11 @@ nav {
   position: absolute;
   background: #fff;
   border: 1px solid #ccc;
-  margin-top: 2.9em;
   border-radius: 4px;
   z-index: 100;
   padding: 0 1em 0 .87em;
-  top: 0;
+  top: 48px;
+  left: 9px;
 }
 
 /* Modal Menu List */
@@ -194,7 +207,7 @@ nav {
   list-style: none;
   padding: 0;
   margin: 0;
-  padding-right: 1.8em;
+  /* padding-right: 1.8em; */
 }
 
 .modal-menu li a {
@@ -212,6 +225,21 @@ nav {
 .modal-menu li a:focus {
   opacity: 0.7;
 }
+
+
+
+/* header modal menu */
+.header-modal-menu {
+  position: absolute;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  z-index: 100;
+  padding: 0 1em 0 .87em;
+  top: 58px;
+  right: 0;
+}
+
 
 /* NAVBAR SECTION END */
 
@@ -345,7 +373,6 @@ p {
 
 /* FIXED BUTTON END */
 
-
 .chat-container {
   display: flex;
   flex-direction: column;
@@ -370,9 +397,6 @@ p {
   /* never shrink, always sit at bottom */
   /* if MessageInput already has a wrapper div, give it this class */
 }
-
-
-
 
 
 
@@ -406,6 +430,7 @@ p {
   transition: transform 0.2s;
   margin-right: .55em;
 }
+
 .chat-header--cool__avatar:hover {
   transform: scale(1.05);
 }
@@ -418,18 +443,20 @@ p {
 
 /* Pulsing status indicator */
 .status-indicator {
-  position: absolute; 
+  position: absolute;
   bottom: 2px;
   right: 2px;
   width: 12px;
   height: 12px;
-  border: 2px solid rgba(255,255,255,0.8);
+  border: 2px solid rgba(255, 255, 255, 0.8);
   border-radius: 50%;
 }
+
 .status-indicator.online {
   background: #4cdc4c;
   animation: pulse 1.5s infinite ease-in-out;
 }
+
 .status-indicator.offline {
   background: #aaa;
   z-index: 90;
@@ -437,8 +464,17 @@ p {
 }
 
 @keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50%       { transform: scale(1.4); opacity: 0.6; }
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.4);
+    opacity: 0.6;
+  }
 }
 
 /* Info section with subtle typography */
@@ -447,11 +483,13 @@ p {
   color: #222;
 
 }
+
 .chat-header--cool__info h3 {
   font-size: 1.065rem;
   letter-spacing: 0.5px;
   text-align: start;
 }
+
 .chat-header--cool__info p {
   font-size: .95rem;
   color: #555;
@@ -475,7 +513,18 @@ p {
   padding: .5rem;
   transition: box-shadow 0.2s, transform 0.2s;
 }
+
 .chat-header--cool__close:hover {
-  box-shadow: 0 0 8px rgba(0,0,0,0.15);
-  transform: rotate(90deg);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+}
+
+.chat-header--cool__close.active {
+  background-color: rgba(0, 0, 0, 0.1);
+
+}
+
+.message-input-container {
+  display: flex;
+  padding-bottom: env(safe-area-inset-bottom);
+  padding: 0 .5rem;
 }

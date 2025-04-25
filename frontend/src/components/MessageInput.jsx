@@ -69,6 +69,7 @@ const MessageInput = () => {
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
+        
         <input
           type="file"
           accept='image/*'
@@ -76,6 +77,8 @@ const MessageInput = () => {
           ref={fileInputRef}
           onChange={handleImageChange}
         />
+
+        {/* image button */}
         <button
           type='button'
           className='btn btn-circle'
@@ -83,6 +86,7 @@ const MessageInput = () => {
         >
           <Image size={20} />
         </button>
+        {/* submit button */}
         <button
           type="submit"
           className="btn btn-circle"
