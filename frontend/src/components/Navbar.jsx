@@ -44,7 +44,7 @@ const Navbar = ({ showBack = false, onBack, searchTerm, setSearchTerm }) => {
           {showBack ? (
             <div className="menu-container">
               <button className="back-button" onClick={onBack}>
-                <ArrowLeft size={24} />
+                <ArrowLeft size={30} />
               </button>
             </div>
 
@@ -74,7 +74,7 @@ const Navbar = ({ showBack = false, onBack, searchTerm, setSearchTerm }) => {
           )}
           {!showBack ? (
             <div className="search-container">
-              <Search size={18} className="search-icon" />
+              <Search size={20} className="search-icon" />
               <input
                 type="text"
                 className="search-bar"
@@ -84,11 +84,9 @@ const Navbar = ({ showBack = false, onBack, searchTerm, setSearchTerm }) => {
               />
             </div>
           ) : (
-              <ChatHeader />  
+            <ChatHeader />
 
           )}
-
-
         </div>
       </div>
     </nav>

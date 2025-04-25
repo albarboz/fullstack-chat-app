@@ -57,7 +57,7 @@ img {
 }
 
 nav {
-  padding: 1em 0;
+  padding: 0em 0;
   background-color: #fff;
   display: flex;
   align-items: center;
@@ -91,6 +91,7 @@ nav {
 .navbar-left {
   align-items: center;
   display: flex;
+  height: 56px;
 }
 
 
@@ -130,7 +131,7 @@ nav {
   border: none;
   cursor: pointer;
   padding: 0;
-  margin-right: 1.2em;
+  margin-right: .55em;
   margin-left: .55em;
   width: 40px;
   height: 40px;
@@ -155,7 +156,7 @@ nav {
   display: flex;
   align-items: center;
   width: 100%;
-  height: 40px;
+  height: 56px;
 }
 
 .search-icon {
@@ -171,7 +172,7 @@ nav {
   /* Adjust left padding to accommodate icon */
   border: 1px solid #ccc;
   border-radius: 100px;
-  font-size: 1rem;
+  font-size: 1.3rem;
   width: 100%;
   box-sizing: border-box;
 }
@@ -392,7 +393,6 @@ p {
   /* border-bottom: 1px solid rgba(255, 255, 255, 0.5); */
   /* border-radius: 0 0 16px 16px; */
   z-index: 10;
-  height: 40px;
 
 }
 
@@ -400,10 +400,11 @@ p {
 .chat-header--cool__avatar {
   position: relative;
   flex-shrink: 0;
-  width: 44px;
-  height: 44px;
+  width: 50px;
+  height: 50px;
   overflow: hidden;
   transition: transform 0.2s;
+  margin-right: .55em;
 }
 .chat-header--cool__avatar:hover {
   transform: scale(1.05);
@@ -444,21 +445,21 @@ p {
 .chat-header--cool__info {
   flex: 1;
   color: #222;
+
 }
 .chat-header--cool__info h3 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  /* margin-bottom: 0.15rem; */
+  font-size: 1.065rem;
   letter-spacing: 0.5px;
-  text-align: center;
-  margin-top: .9rem;
+  text-align: start;
 }
 .chat-header--cool__info p {
-  font-size: 0.85rem;
+  font-size: .95rem;
   color: #555;
   opacity: 0.9;
-  margin-top: .3rem;
-  margin-bottom: 0.7rem;
+  /* margin-bottom: 0.7rem; */
+  margin: 0;
+  text-align: start;
+
 }
 
 /* Close button with hover glow */
