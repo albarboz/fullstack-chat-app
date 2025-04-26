@@ -15,7 +15,7 @@ body {
   padding-top: env(safe-area-inset-top);
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
-  padding-bottom: env(safe-area-inset-bottom);
+  /* padding-bottom: env(safe-area-inset-bottom); */
   background-image: url("https://img.freepik.com/free-vector/navy-blue-geometrical-patterned-mobile-wallpaper-vector_53876-167963.jpg?t=st=1745637010~exp=1745640610~hmac=9e42b1f3e5f0757fdf990777073cd28867150ab25894ff4e3c048bf2b2c0f373&w=740");
 
 }
