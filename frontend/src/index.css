@@ -580,11 +580,11 @@ p {
 
 .send-mask .icon {
   display: inline-block;
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   /* mask the SVG file you already have */
-  mask: url('../src/assets/send.svg') no-repeat center / contain;
-  -webkit-mask: url('../src/assets/send.svg') no-repeat center / contain;
+  mask: url('../src/assets/send.svg') no-repeat center / cover;
+  -webkit-mask: url('../src/assets/send.svg') no-repeat center / cover;
   /* paint it any color */
   background-color: rgb(51, 144, 236); /* emerald-500 */
 }
