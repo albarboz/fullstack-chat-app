@@ -561,8 +561,11 @@ p {
   margin-left: 8px;
   border-radius: 50%;
   background-color: white;
-  width: 11vw;  /* Adjust based on your design needs */
-  height: 11vw; /* Maintain a square aspect ratio */
+  width: 10vw;  /* Adjust based on your design needs */
+  height: 10vw; /* Maintain a square aspect ratio */
+  display: flex;  /* Flexbox to center the icon */
+  justify-content: center;  /* Center horizontally */
+  align-items: center; 
 }
 
 .btn.btn-circle:hover {
