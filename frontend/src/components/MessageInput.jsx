@@ -1,7 +1,9 @@
 import React, { useState, useRef } from 'react'
 import { useChatStore } from '../store/useChatStore.js'
-import { Image, Send, X } from 'lucide-react'
+import { Image, X } from 'lucide-react'
 import toast from 'react-hot-toast'
+import sendIcon from '../assets/send.svg'  // ← this gives you a URL string
+
 
 const MessageInput = () => {
   const [text, setText] = useState('')
@@ -62,37 +64,44 @@ const MessageInput = () => {
         </div>
       )}
 
-      <form onSubmit={handleSendChatMessage}>
+      <form onSubmit={handleSendChatMessage} className='message-input-form-container'>
         <input
           type="text"
-          placeholder='Type a message...'
+          placeholder='Message...'
           value={text}
           onChange={(e) => setText(e.target.value)}
+          className='message-input'
         />
-        
-        <input
+
+        {/* <input
           type="file"
           accept='image/*'
           className='hidden'
           ref={fileInputRef}
           onChange={handleImageChange}
-        />
+        /> */}
 
         {/* image button */}
-        <button
+        {/* <button
           type='button'
           className='btn btn-circle'
           onClick={() => fileInputRef.current?.click()}
         >
           <Image size={20} />
-        </button>
+        </button> */}
+
+
         {/* submit button */}
+        <div className='svg-container'>
+
+        </div>
         <button
           type="submit"
-          className="btn btn-circle"
+          className="btn btn-circle send-mask"
           disabled={!text.trim() && !imagePreview}
         >
-          <Send size={20} />
+          <span className="icon" />
+
         </button>
       </form>
     </div>

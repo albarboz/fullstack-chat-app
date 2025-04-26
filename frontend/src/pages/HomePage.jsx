@@ -36,6 +36,7 @@ const HomePage = () => {
 
   return (
     <div className='container homepage'>
+
       <div className='navbar-container'>
         <Navbar
           showBack={Boolean(selectedUser)}
@@ -46,13 +47,6 @@ const HomePage = () => {
       <div className='content-area'>
         {selectedUser ? <ChatContainer searchTerm={searchTerm} /> : <ConversationList searchTerm={searchTerm} />}
       </div>
-
-
-      {/* <button className="fixed-button">
-      <Link to="/contacts/find">
-      Find niggas
-      </Link>
-      </button> */}
 
     </div>
   )
