@@ -561,6 +561,8 @@ p {
   margin-left: 8px;
   border-radius: 50%;
   background-color: white;
+  width: 10vw;  /* Adjust based on your design needs */
+  height: 10vw; /* Maintain a square aspect ratio */
 }
 
 .btn.btn-circle:hover {
