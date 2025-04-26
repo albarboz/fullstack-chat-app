@@ -582,7 +582,6 @@ p {
   display: inline-block;
   width: 35px;
   height: 35px;
-  margin-top: 3px;
   /* mask the SVG file you already have */
   mask: url('../src/assets/send.svg') no-repeat center / contain;
   -webkit-mask: url('../src/assets/send.svg') no-repeat center / contain;
