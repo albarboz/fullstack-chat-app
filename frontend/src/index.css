@@ -591,22 +591,12 @@ p {
 
 
 
-.svg-container {
-  position: relative;
-}
-
-.svg-appendix {
-  position: absolute;
-  bottom: 0;
-  left: 0; /* Adjust as needed */
-}
-
 
 
   background-image: url("https://images.unsplash.com/photo-1526554850534-7c78330d5f90?fm=jpg&q=80&w=3000");
   /* Optional: add a slight overlay to improve text legibility */
 
-  .icon {
+  /* .icon {
     width: 100%;
     height: auto;
-  }
+  } */
