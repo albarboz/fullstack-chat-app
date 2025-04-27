@@ -561,10 +561,10 @@ p {
   margin-left: 8px;
   border-radius: 50%;
   background-color: white;
-  width: 10vw;  /* Adjust based on your design needs */
-  height: 10vw; /* Maintain a square aspect ratio */
-  display: flex;  /* Flexbox to center the icon */
-  justify-content: center;  /* Center horizontally */
+  width: 2.5rem;
+  height: 2.5rem; 
+  display: flex; 
+  justify-content: center;  
   align-items: center; 
 }
 
@@ -596,7 +596,4 @@ p {
   background-image: url("https://images.unsplash.com/photo-1526554850534-7c78330d5f90?fm=jpg&q=80&w=3000");
   /* Optional: add a slight overlay to improve text legibility */
 
-  .icon {
-    width: 100%;
-    height: auto;
-  }
+ 
