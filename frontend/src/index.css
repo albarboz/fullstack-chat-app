@@ -58,7 +58,7 @@ img {
   flex-direction: column;
   background-image: url("https://img.freepik.com/free-vector/navy-blue-geometrical-patterned-mobile-wallpaper-vector_53876-167963.jpg?t=st=1745637010~exp=1745640610~hmac=9e42b1f3e5f0757fdf990777073cd28867150ab25894ff4e3c048bf2b2c0f373&w=740");
 
-  
+
 }
 
 nav {
@@ -398,7 +398,8 @@ p {
 
 .chat-container .message-input-wrapper {
   flex-shrink: 0;
-  background-color: transparent;  /* so you can see the <body> background */
+  background-color: transparent;
+  /* so you can see the <body> background */
 
   /* never shrink, always sit at bottom */
   /* if MessageInput already has a wrapper div, give it this class */
@@ -543,7 +544,8 @@ p {
   display: flex;
   width: 100%;
   opacity: 1;
-  background-color: transparent;  /* so you can see the <body> background */
+  background-color: transparent;
+  /* so you can see the <body> background */
 
 }
 
@@ -561,15 +563,18 @@ p {
   margin-left: 8px;
   border-radius: 50%;
   background-color: white;
-  width: 40px;  /* Fixed width */
-  height: 40px; /* Fixed height */
-  display: flex; 
-  justify-content: center;  
-  align-items: center; 
+  width: 40px;
+  /* Fixed width */
+  height: 40px;
+  /* Fixed height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .btn.btn-circle:hover {
-  background-color: rgb(51, 144, 236); /* emerald-500 */
+  background-color: rgb(51, 144, 236);
+  /* emerald-500 */
 }
 
 .btn.btn-circle:hover .icon {
@@ -581,12 +586,15 @@ p {
 .send-mask .icon {
   display: inline-block;
   width: 40px;
+  /* Slightly smaller than the button */
   height: 40px;
-  /* mask the SVG file you already have */
   mask: url('../src/assets/send.svg') no-repeat center / contain;
   -webkit-mask: url('../src/assets/send.svg') no-repeat center / contain;
-  /* paint it any color */
-  background-color: rgb(51, 144, 236); /* emerald-500 */
+  mask-size: 100% 100%;
+  /* Force exact sizing */
+  -webkit-mask-size: 100% 100%;
+  background-color: rgb(51, 144, 236);
+
 }
 
 .btn.btn-circle .icon svg {
@@ -596,7 +604,5 @@ p {
 
 
 
-  background-image: url("https://images.unsplash.com/photo-1526554850534-7c78330d5f90?fm=jpg&q=80&w=3000");
-  /* Optional: add a slight overlay to improve text legibility */
-
- 
+background-image: url("https://images.unsplash.com/photo-1526554850534-7c78330d5f90?fm=jpg&q=80&w=3000");
+/* Optional: add a slight overlay to improve text legibility */
