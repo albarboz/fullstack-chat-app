@@ -1,62 +1,67 @@
-import React, { useState, useRef } from 'react'
-import { useChatStore } from '../store/useChatStore.js'
-import { Image, X } from 'lucide-react'
-import toast from 'react-hot-toast'
-import sendIcon from '../assets/send.svg'  // ← this gives you a URL string
-
+import React, { useState, useRef } from "react";
+import { useChatStore } from "../store/useChatStore.js";
+import { Image, Paperclip, Smile, X } from "lucide-react";
+import toast from "react-hot-toast";
+import sendIcon from "../assets/send.svg";
 
 const MessageInput = () => {
-  const [text, setText] = useState('')
-  const [imagePreview, setImagePreview] = useState(null)
-  const fileInputRef = useRef(null)
-  const { sendChatMessage } = useChatStore()
+  const [text, setText] = useState("");
+  const [imagePreview, setImagePreview] = useState(null);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const fileInputRef = useRef(null);
+  const { sendChatMessage } = useChatStore();
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0]
+    const file = e.target.files[0];
     if (!file || !file.type.startsWith("image/")) {
-      toast.error('Please select an image file')
-      return
+      toast.error("Please select an image file");
+      return;
     }
-    const reader = new FileReader()
+    const reader = new FileReader();
     reader.onloadend = () => {
-      setImagePreview(reader.result)
-    }
-    reader.readAsDataURL(file)
-  }
+      setImagePreview(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
 
   const removeImage = () => {
-    setImagePreview(null)
-    if (fileInputRef.current) fileInputRef.current.value = ''
-  }
+    setImagePreview(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
 
   const handleSendChatMessage = async (e) => {
-    e.preventDefault()
-    if (!text.trim() && !imagePreview) return
+    e.preventDefault();
+    if (!text.trim() && !imagePreview) return;
     try {
       await sendChatMessage({
         text: text.trim(),
-        image: imagePreview
-      })
-      setText('')
-      setImagePreview(null)
-      if (fileInputRef.current) fileInputRef.current.value = ''
+        image: imagePreview,
+      });
+      setText("");
+      setImagePreview(null);
+      if (fileInputRef.current) fileInputRef.current.value = "";
     } catch (error) {
-      console.error('Failed to send message:', error)
+      console.error("Failed to send message:", error);
     }
-  }
+  };
+
+  const emojis = ["😀", "😁", "😂", "🤣", "😃", "😄", "😅", "😆", "😉", "😊"];
+
+  const addEmoji = (emoji) => {
+    setText(text + emoji);
+    setShowEmojiPicker(false);
+  };
 
   return (
-    <div className='message-input-container'>
+    <div className="message-input-container">
       {imagePreview && (
-        <div>
-          <div>
-            <img
-              src={imagePreview}
-              alt='Preview'
-            />
+        <div className="image-preview-container">
+          <div className="image-preview">
+            <img src={imagePreview} alt="Preview" className="preview-image" />
             <button
               onClick={removeImage}
-              type='button'
+              type="button"
+              className="remove-image-btn"
             >
               <X size={14} />
             </button>
@@ -64,48 +69,109 @@ const MessageInput = () => {
         </div>
       )}
 
-      <form onSubmit={handleSendChatMessage} className='message-input-form-container'>
+      {showEmojiPicker && (
+        <div className="emoji-picker">
+          {emojis.map((emoji, index) => (
+            <button
+              key={index}
+              className="emoji-btn"
+              onClick={() => addEmoji(emoji)}
+            >
+              {emoji}
+            </button>
+          ))}
+        </div>
+      )}
+
+      <form
+        onSubmit={handleSendChatMessage}
+        className="message-input-form-container"
+      >
+        <button
+          type="button"
+          className="icon-button smile-icon"
+          onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+        >
+          <Smile size={20} />
+        </button>
+
         <input
           type="text"
-          placeholder='Message...'
+          placeholder="Message..."
           value={text}
           onChange={(e) => setText(e.target.value)}
-          className='message-input'
+          className="message-input"
         />
 
-        {/* <input
+
+        <button
+          type="button"
+          className="icon-button paperclip-icon"
+          onClick={() => fileInputRef.current.click()}
+        >
+          <Paperclip size={20} />
+        </button>
+
+        <input
           type="file"
-          accept='image/*'
-          className='hidden'
           ref={fileInputRef}
           onChange={handleImageChange}
-        /> */}
+          accept="image/*"
+          style={{ display: "none" }}
+        />
 
-        {/* image button */}
-        {/* <button
-          type='button'
-          className='btn btn-circle'
-          onClick={() => fileInputRef.current?.click()}
-        >
-          <Image size={20} />
-        </button> */}
-
-
-        {/* submit button */}
-        <div className='svg-container'>
-
+        <div className="svg-container">
+        <svg className="svg-appendix" width="9" height="17">
+            <defs>
+              <filter
+                x="-60%"
+                y="-10.7%"
+                width="200%"
+                height="141.2%"
+                filterUnits="objectBoundingBox"
+                id="composerAppendix"
+              >
+                <feOffset
+                  dy="1"
+                  in="SourceAlpha"
+                  result="shadowOffsetOuter1"
+                ></feOffset>
+                <feGaussianBlur
+                  stdDeviation="1"
+                  in="shadowOffsetOuter1"
+                  result="shadowBlurOuter1"
+                ></feGaussianBlur>
+                <feColorMatrix
+                  values="0 0 0 0 0.0621962482 0 0 0 0 0.138574144 0 0 0 0 0.185037364 0 0 0 0.15 0"
+                  in="shadowBlurOuter1"
+                ></feColorMatrix>
+              </filter>
+            </defs>
+            <g fill="none" fillRule="evenodd">
+              <path
+                d="M6 17H0V0c.193 2.84.876 5.767 2.05 8.782.904 2.325 2.446 4.485 4.625 6.48A1 1 0 016 17z"
+                fill="#000"
+                filter="url(#composerAppendix)"
+              ></path>
+              <path
+                d="M6 17H0V0c.193 2.84.876 5.767 2.05 8.782.904 2.325 2.446 4.485 4.625 6.48A1 1 0 016 17z"
+                fill="#FFF"
+                className="corner"
+              ></path>
+            </g>
+          </svg>
         </div>
+
         <button
           type="submit"
           className="btn btn-circle send-mask"
           disabled={!text.trim() && !imagePreview}
         >
           <span className="icon" />
-
         </button>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default MessageInput
+export default MessageInput;
