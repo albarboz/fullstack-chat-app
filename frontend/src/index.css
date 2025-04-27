@@ -561,8 +561,8 @@ p {
   margin-left: 8px;
   border-radius: 50%;
   background-color: white;
-  width: 2.5rem;
-  height: 2.5rem; 
+  width: 10vw; 
+  height: 10vw; 
   display: flex; 
   justify-content: center;  
   align-items: center; 
@@ -589,7 +589,10 @@ p {
   background-color: rgb(51, 144, 236); /* emerald-500 */
 }
 
-
+.btn.btn-circle .icon svg {
+  width: 30px;
+  height: 30px;
+}
 
 
 
