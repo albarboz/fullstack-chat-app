@@ -30,54 +30,64 @@ const ChatContainer = ({ searchTerm }) => {
 
 
   return (
-    <div className="chat-container">
-      {/* <ChatHeader /> */}
+    <div className="message-list">
+
 
       {/* Chat Messages */}
       <div className="chat-messages">
 
 
 
-          {filteredMessages.map((message) => (
+        {filteredMessages.map((message) => (
+          <div
+            key={message._id}
+            className={`chat-message ${message.senderId === authUser._id ? 'chat-end' : 'chat-start'}`}
+          >
+
+            {/* Avatar */}
+
+
+
+            {/* Message and Image */}
             <div
-              key={message._id}
-              className={`chat-message ${message.senderId === authUser._id ? 'chat-end' : 'chat-start'}`}
+              className={`message-chat_container ${message.text && message.text.length > 33 ? 'column-layout' : 'row-layout'}`}
             >
 
-              {/* Avatar */}
-              <div>
+              {/* {message.image && (
                 <img
-                  src={message.senderId === authUser._id ? authUser.profilePic || '/avatar.png' :
-                    selectedUser.profilePic || '/avatar.png'}
-                  alt="profile pic"
+                  src={message.image}
+                  alt="Attachment"
                 />
+              )} */}
+              
+              <div className="text-content">
+                {message.text && <p><Highlight text={message.text} highlight={searchTerm} /></p>}
               </div>
 
-              {/* Time */}
-              <div>
-                <time className="text-xs opacity-50 ml-1">
-                  <time>{formatMessageTime(message.createdAt)}</time>
+              <div className="message-meta">
+                <time>
+                  {formatMessageTime(message.createdAt)}
+                  {message.senderId === authUser._id && (
+                    <span className="checkmarks">✔️✔️</span>
+                  )}
                 </time>
               </div>
 
-              {/* Message and Image */}
-              <div>
-                {message.image && (
-                  <img
-                    src={message.image}
-                    alt="Attachment"
-                  />
-                )}
-                {message.text && <p><Highlight text={message.text} highlight={searchTerm} /></p>}
-              </div>
             </div>
-          ))}
-        </div>
 
-        <div className="message-input-wrapper">
-          <MessageInput />
-        </div>
+          </div>
+        ))}
+      </div>
+
+
+
+      <div className="message-input-wrapper">
+        <MessageInput />
+      </div>
+
+
     </div>
+
   )
 }
 
