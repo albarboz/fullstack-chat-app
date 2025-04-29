@@ -291,6 +291,7 @@ p {
 .conversation-list__avatar {
   margin-right: .7rem;
   position: relative;
+  flex-shrink: 0;
 }
 
 /* last message and name section */
@@ -328,9 +329,10 @@ p {
 .conversation-list__preview {
   color: #555;
   font-size: 1rem;
-  display: flex;
-  align-items: center;
+  overflow: hidden; 
+  white-space: nowrap;
   text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .conversation-list__timestamp {
