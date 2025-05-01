@@ -1,0 +1,74 @@
+
+.conversation-list__rows {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .conversation-list__row {
+    min-height: 3rem;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0.5rem;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    color: black;
+    --ripple-color: rgba(0, 0, 0, 0.08);
+    text-decoration: none;
+    width: 100%;
+  }
+  
+  /* profile pic section */
+  .conversation-list__avatar {
+    margin-right: .7rem;
+    position: relative;
+    flex-shrink: 0;
+  }
+  
+  /* last message and name section */
+  .conversation-list__status-indicator {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 10px;
+    height: 10px;
+    border-radius: 100px;
+    background-color: green;
+    border: none solid black;
+  
+  }
+  
+  .conversation-list__info {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 0;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 4px;
+  }
+  
+  .conversation-list__name {
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+  }
+  
+  .conversation-list__preview {
+    color: #555;
+    font-size: 1rem;
+    overflow: hidden; 
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+  
+  .conversation-list__timestamp {
+    font-size: small;
+  }
+  

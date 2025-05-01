@@ -1,7 +1,7 @@
 // frontend/src/pages/FindContactsPage.jsx
 import { useState } from 'react';
-import { axiosInstance } from '../lib/axios.js';
-import { useContactStore } from '../store/useContactStore.js';
+import { axiosInstance } from '../../lib/axios.js';
+import { useContactStore } from '../../store/useContactStore.js';
 import { Search, UserPlus } from 'lucide-react';
 import toast from 'react-hot-toast';
 

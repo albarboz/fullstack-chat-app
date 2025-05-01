@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { useChatStore } from '../store/useChatStore.js'
+import { useChatStore } from '../../store/useChatStore.js'
 // import { SidebarSkeleton } from './skeletons/SidebarSkeleton.jsx'
-import { useAuthStore } from '../store/useAuthStore.js'
-import { useSocketStore } from '../store/useSocketStore.js'
-
-import { formatMessageDate } from '../lib/utils.js'
-import Highlight from './Highlight.jsx'
+import { useAuthStore } from '../../store/useAuthStore.js'
+import { useSocketStore } from '../../store/useSocketStore.js'
+import { formatMessageDate } from '../../lib/utils.js'
+import Highlight from '../Highlight.jsx'
+import '../../components/ConversationList/ConversationList.css'
 
 const ConversationList = ({ searchTerm }) => {
     const { fetchChatUsers, users, openChatWithUser, messages, fetchAllMessages } = useChatStore()

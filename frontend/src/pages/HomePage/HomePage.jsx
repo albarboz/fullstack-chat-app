@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { useChatStore } from '../store/useChatStore.js'
+import { useChatStore } from '../../store/useChatStore.js'
 import { Link } from 'react-router-dom'
-import Navbar from '../components/Navbar.jsx'
-import ConversationList from '../components/ConversationList.jsx'
-import ChatContainer from '../components/ChatContainer.jsx'
+import Navbar from '../../components/Navbar/Navbar.jsx'
+import ConversationList from '../../components/ConversationList/ConversationList.jsx'
+import ChatContainer from '../../components/ChatContainer/ChatContainer.jsx'
+import '../../pages/HomePage/HomePage.css'
 
 const HomePage = () => {
   const { selectedUser, clearSelectedUser } = useChatStore()

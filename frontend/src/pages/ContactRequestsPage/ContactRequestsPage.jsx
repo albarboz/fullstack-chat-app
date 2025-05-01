@@ -1,6 +1,6 @@
 // frontend/src/pages/ContactRequestsPage.jsx
 import { useEffect } from 'react';
-import { useContactStore } from '../store/useContactStore.js';
+import { useContactStore } from '../../store/useContactStore.js';
 import { Check, X } from 'lucide-react';
 
 const ContactRequestsPage = () => {

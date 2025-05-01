@@ -1,0 +1,164 @@
+.navbar-left {
+  align-items: center;
+  display: flex;
+  height: 56px;
+  padding: 0 .5rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+
+}
+
+/* Container for Navigation menu button and modal */
+.menu-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.menu-button {
+  background: none;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-right: .8em;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+
+  /* Centering the SVG icon inside */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Optional: Smooth transition for interactions */
+  transition: transform 0.2s, box-shadow 0.2s;
+  color: #5a5e62;
+}
+
+.menu-button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.back-button {
+  background: none;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin-right: .55em;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+
+  /* Centering the SVG icon inside */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Optional: Smooth transition for interactions */
+  transition: transform 0.2s, box-shadow 0.2s;
+  color: #5a5e62;
+
+}
+
+.back-button:hover {
+  /* box-shadow: 0 0 8px rgba(0, 0, 0, 0.15); */
+  background-color: rgba(0, 0, 0, 0.1);
+
+}
+
+.menu-button.active {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* SEARCH BAR SECTION */
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 46px;
+}
+
+.search-icon {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  left: 15px;
+  color: #b2b4b7;
+  stroke-width: 2.55px;
+}
+
+.search-icon.focused {
+  color: #3390ec;
+}
+
+.search-bar {
+  padding: .5em 0.5em 0.33em 3em;
+  border-radius: 100px;
+  font-size: 1.02rem;
+  width: 100%;
+  box-sizing: border-box;
+  height: 45px;
+  background-color: #F4F4F5;
+  border: 2px solid var(--color-chat-hover);
+  border-radius: 1.375rem;
+}
+
+.search-bar.focused {
+  background-color: #ffffff;
+
+}
+
+.search-bar::placeholder {
+  color: #a2acb4;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}
+
+/* DROPDOWN MODAL SECTION */
+.modal-content {
+  position: absolute;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  z-index: 100;
+  padding: 0 1em 0 .87em;
+  top: 48px;
+  left: 3px;
+}
+
+/* Modal Menu List */
+.modal-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  /* padding-right: 1.8em; */
+}
+
+.modal-menu li a {
+  text-decoration: none;
+  letter-spacing: 1.5px;
+  color: #333;
+  display: flex;
+  gap: 1em;
+  margin: 1em 0;
+  font-size: large;
+  align-items: flex-end;
+}
+
+.modal-menu li a:hover,
+.modal-menu li a:focus {
+  opacity: 0.7;
+}
+
+/* header modal menu */
+.header-modal-menu {
+  position: absolute;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  z-index: 100;
+  padding: 0 1em 0 .87em;
+  top: 58px;
+  right: 0;
+}

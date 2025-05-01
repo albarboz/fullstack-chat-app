@@ -1,14 +1,17 @@
 import React from 'react'
 import { useState, useRef, useEffect } from 'react';
-import { useAuthStore } from '../store/useAuthStore.js'
+import { useAuthStore } from '../../store/useAuthStore.js'
 import { ArrowLeft, LogOut, User, Settings, Menu, MessageCircleMore, Search } from 'lucide-react';
-import ContactRequestBadge from './ContactRequestBadge';
-import ChatHeader from './ChatHeader.jsx';
+import ContactRequestBadge from '../ContactRequestBadge.jsx';
+import NavChatHeader from '../NavChatHeader/NavChatHeader.jsx'
+import '../../components/Navbar/Navbar.css'
 
 const Navbar = ({ showBack = false, onBack, searchTerm, setSearchTerm }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const modalRef = useRef(null)
   const menuButtonRef = useRef(null)
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
+
 
   const { logout, authUser } = useAuthStore()
 
@@ -44,9 +47,9 @@ const Navbar = ({ showBack = false, onBack, searchTerm, setSearchTerm }) => {
           {showBack ? (
             <div className="menu-container">
               <button className="back-button" onClick={onBack}>
-                <ArrowLeft size={30} />
+                <ArrowLeft size={35} />
               </button>
-            
+
             </div>
 
 
@@ -57,7 +60,7 @@ const Navbar = ({ showBack = false, onBack, searchTerm, setSearchTerm }) => {
                 onClick={toggleModal}
                 ref={menuButtonRef}
               >
-                <Menu size={24} />
+                <Menu size={22} />
               </button>
               {isModalOpen && (
                 <div className="modal-content" ref={modalRef}>
@@ -76,18 +79,19 @@ const Navbar = ({ showBack = false, onBack, searchTerm, setSearchTerm }) => {
 
           {!showBack ? (
             <div className="search-container">
-              <Search size={20} className="search-icon" />
+              <Search size={20} className={`search-icon ${isSearchFocused ? 'focused' : ''}`} />
               <input
                 type="text"
-                className="search-bar"
-                placeholder="Search..."
+                className={`search-bar ${isSearchFocused ? 'focused' : ''}`}                placeholder="Search"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
+                onFocus={() => setIsSearchFocused(true)}
+                onBlur={() => setIsSearchFocused(false)}
               />
             </div>
           ) : (
 
-            <ChatHeader />
+            <NavChatHeader />
 
           )}
         </div>

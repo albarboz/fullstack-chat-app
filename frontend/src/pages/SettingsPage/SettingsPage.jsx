@@ -1,6 +1,6 @@
 import React from 'react'
-import { useThemeStore } from '../store/useThemeStore.js'
-import { THEMES } from '../constants'
+import { useThemeStore } from '../../store/useThemeStore.js'
+import { THEMES } from '../../constants/index.js'
 
 
 

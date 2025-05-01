@@ -1,10 +1,11 @@
 import React from 'react'
 import { EllipsisVertical, MessageCircleMore, Mic, Search, Trash } from 'lucide-react'
-import { useChatStore } from '../store/useChatStore.js'
-import { useSocketStore } from '../store/useSocketStore.js'
+import { useChatStore } from '../../store/useChatStore.js'
+import { useSocketStore } from '../../store/useSocketStore.js'
 import { useEffect, useRef, useState } from 'react'
+import '../../components/NavChatHeader/NavChatHeader.css'
 
-const ChatHeader = () => {
+const NavChatHeader = () => {
   const { selectedUser, openChatWithUser } = useChatStore()
   const { onlineUsers } = useSocketStore()
   const isOnline = onlineUsers.includes(selectedUser._id)
@@ -54,7 +55,7 @@ const ChatHeader = () => {
         ref={buttonRef}
         aria-label="Open Chat Menu"
       >
-        <EllipsisVertical size={25} />
+        <EllipsisVertical size={24} className='ellipsis-icon' />
       </button>
       {isMenuOpen && (
         <div className="header-modal-menu" ref={menuRef}>
@@ -70,4 +71,4 @@ const ChatHeader = () => {
   )
 }
 
-export default ChatHeader
+export default NavChatHeader

@@ -1,8 +1,10 @@
 import React, { useState, useRef } from "react";
-import { useChatStore } from "../store/useChatStore.js";
+import { useChatStore } from "../../store/useChatStore.js";
 import { Image, Paperclip, Smile, X } from "lucide-react";
 import toast from "react-hot-toast";
-import sendIcon from "../assets/send.svg";
+// import sendIcon from "../assets/send.svg";
+
+import '../../components/MessageInput/MessageInput.css'
 
 const MessageInput = () => {
   const [text, setText] = useState("");

@@ -1,10 +1,11 @@
-import { useChatStore } from "../store/useChatStore.js"
+import { useChatStore } from "../../store/useChatStore.js"
 import { useEffect, useRef } from "react"
-import ChatHeader from "./ChatHeader.jsx"
-import MessageInput from "./MessageInput.jsx"
-import { useAuthStore } from "../store/useAuthStore.js"
-import { formatMessageTime } from "../lib/utils.js"
-import Highlight from "./Highlight.jsx"
+// import ChatHeader from "../ChatHeader/ChatHeader.jsx"
+import MessageInput from '../MessageInput/MessageInput.jsx'
+import { useAuthStore } from "../../store/useAuthStore.js"
+import { formatMessageTime } from "../../lib/utils.js"
+import Highlight from "../Highlight.jsx"
+import '../../components/ChatContainer/ChatContainer.css'
 
 
 const ChatContainer = ({ searchTerm }) => {
