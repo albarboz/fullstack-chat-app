@@ -1,16 +1,18 @@
 import React from 'react'
 import { useState, useRef, useEffect } from 'react';
 import { useAuthStore } from '../../store/useAuthStore.js'
-import { ArrowLeft, LogOut, User, Settings, Menu, MessageCircleMore, Search } from 'lucide-react';
-import ContactRequestBadge from '../ContactRequestBadge.jsx';
+import { ArrowLeft, LogOut, User, Settings, Menu, MessageCircleMore, Search, UserPlus } from 'lucide-react';
 import NavChatHeader from '../NavChatHeader/NavChatHeader.jsx'
 import '../../components/Navbar/Navbar.css'
+import { useContactStore } from '../../store/useContactStore.js';
 
 const Navbar = ({ showBack = false, onBack, searchTerm, setSearchTerm }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const modalRef = useRef(null)
   const menuButtonRef = useRef(null)
   const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const { contactRequests, fetchContactRequests } = useContactStore();
+
 
 
   const { logout, authUser } = useAuthStore()
@@ -33,6 +35,15 @@ const Navbar = ({ showBack = false, onBack, searchTerm, setSearchTerm }) => {
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [isModalOpen])
+
+
+  useEffect(() => {
+    fetchContactRequests();
+    const interval = setInterval(() => {
+      fetchContactRequests();
+    }, 30000);
+    return () => clearInterval(interval);
+  }, [fetchContactRequests]);
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -65,11 +76,21 @@ const Navbar = ({ showBack = false, onBack, searchTerm, setSearchTerm }) => {
               {isModalOpen && (
                 <div className="modal-content" ref={modalRef}>
                   <ul className="modal-menu">
-                    <li><a href="/"><MessageCircleMore />Chats</a></li>
-                    <li><a href="/settings"><Settings />Settings</a></li>
-                    <li><a href="/profile"><User />Profile</a></li>
-                    <li><a href="/logout" onClick={handleLogout}><LogOut />Logout</a></li>
-                    <li><ContactRequestBadge /></li>
+                    <li><a href="/"><MessageCircleMore className='modal-icons' />Chats</a></li>
+                    <div className='mod'></div>
+                    <li><a href="/settings"><Settings className='modal-icons' />Settings</a></li>
+                    <div className='mod'></div>
+                    <li><a href="/profile"><User className='modal-icons' />Profile</a></li>
+                    <li><a href="/logout" onClick={handleLogout}><LogOut className='modal-icons' />Logout</a></li>
+                    <li><a href="/contacts/requests">
+                      <UserPlus className='modal-icons' />
+                      Requests
+                      {contactRequests.length > 0 && (
+                        <>
+                          ({contactRequests.length})
+                        </>
+                      )}
+                    </a></li>
                   </ul>
                 </div>
               )}
@@ -82,7 +103,7 @@ const Navbar = ({ showBack = false, onBack, searchTerm, setSearchTerm }) => {
               <Search size={20} className={`search-icon ${isSearchFocused ? 'focused' : ''}`} />
               <input
                 type="text"
-                className={`search-bar ${isSearchFocused ? 'focused' : ''}`}                placeholder="Search"
+                className={`search-bar ${isSearchFocused ? 'focused' : ''}`} placeholder="Search"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onFocus={() => setIsSearchFocused(true)}

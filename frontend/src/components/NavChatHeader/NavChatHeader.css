@@ -1,132 +1,195 @@
  /* Glassmorphic, soft-shadow header */
  .chat-header--cool {
-    position: relative;
-    display: flex;
-    width: 100%;
-    align-items: center;
-    padding: 0rem 0rem;
-    backdrop-filter: blur(12px);
-    /* background: rgba(255, 255, 255, 0.35); */
-    /* box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05); */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: 0 0 16px 16px;
-    z-index: 10;
-  
-  }
-  
-  /* Avatar with neon glow ring */
-  .chat-header--cool__avatar {
-    position: relative;
-    flex-shrink: 0;
-    width: 42px;
-    height: 42px;
-    overflow: hidden;
-    transition: transform 0.2s;
-    margin-right: .625em;
-  }
-  
-  .chat-header--cool__avatar:hover {
-    transform: scale(1.05);
-  }
-  
-  .chat-header--cool__avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  /* Pulsing status indicator */
-  .status-indicator {
-    position: absolute;
-    bottom: 2px;
-    right: 2px;
-    width: 12px;
-    height: 12px;
-    border: 2px solid rgba(255, 255, 255, 0.8);
-    border-radius: 50%;
-  }
-  
-  .status-indicator.online {
-    background: #4cdc4c;
-    animation: pulse 1.5s infinite ease-in-out;
-  }
-  
-  .status-indicator.offline {
-    background: #aaa;
-    z-index: 90;
-  
-  }
-  
-  @keyframes pulse {
-  
-    0%,
-    100% {
-      transform: scale(1);
-      opacity: 1;
-    }
-  
-    50% {
-      transform: scale(1.4);
-      opacity: 0.6;
-    }
-  }
-  
-  /* Info section with subtle typography */
-  .chat-header--cool__info {
-    flex: 1;
-    color: #222;
-    display: flex;
-    flex-direction: column;
-  
-  }
-  
-  .chat-header--cool__info h3 {
-    font-size: 1.088rem;
-    letter-spacing: 0.5px;
-    text-align: start;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 600;
-    line-height: 1.375rem;
-  }
-  
-  .chat-header--cool__info p {
-    font-size: .880rem;
-    color: #555555fb;
-    opacity: 0.9;
-    /* margin-bottom: 0.7rem; */
-    margin: 0;
-    text-align: start;
-    font-family: 'Roboto', sans-serif;
+   position: relative;
+   display: flex;
+   width: 100%;
+   align-items: center;
+   padding: 0rem 0rem;
+   backdrop-filter: blur(12px);
+   /* background: rgba(255, 255, 255, 0.35); */
+   /* box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05); */
+   border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+   border-radius: 0 0 16px 16px;
+   z-index: 10;
 
-    font-weight: 340;
-    letter-spacing: .05em;
-  
-  }
-  
-  /* Close button with hover glow */
-  .chat-header--cool__close {
-    background: none;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0rem;
-    border-radius: 50%;
-    cursor: pointer;
-    padding: .5rem;
-  }
-  
-  .chat-header--cool__close:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+ }
 
-  }
-  
-  .chat-header--cool__close.active {
-    background-color: rgba(0, 0, 0, 0.1);
-  
-  }
+ /* Avatar with neon glow ring */
+ .chat-header--cool__avatar {
+   position: relative;
+   flex-shrink: 0;
+   width: 42px;
+   height: 42px;
+   overflow: hidden;
+   transition: transform 0.2s;
+   margin-right: .625em;
+ }
 
-  .ellipsis-icon {
-    color: #5a5e62;
-padding: 0rem .07rem;
-  }
+ .chat-header--cool__avatar:hover {
+   transform: scale(1.05);
+ }
+
+ .chat-header--cool__avatar img {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+ }
+
+ /* Pulsing status indicator */
+ .status-indicator {
+   position: absolute;
+   bottom: 2px;
+   right: 2px;
+   width: 12px;
+   height: 12px;
+   border: 2px solid rgba(255, 255, 255, 0.8);
+   border-radius: 50%;
+ }
+
+ .status-indicator.online {
+   background: #4cdc4c;
+   animation: pulse 1.5s infinite ease-in-out;
+ }
+
+ .status-indicator.offline {
+   background: #aaa;
+   z-index: 90;
+
+ }
+
+ @keyframes pulse {
+
+   0%,
+   100% {
+     transform: scale(1);
+     opacity: 1;
+   }
+
+   50% {
+     transform: scale(1.4);
+     opacity: 0.6;
+   }
+ }
+
+ /* Info section with subtle typography */
+ .chat-header--cool__info {
+   flex: 1;
+   color: #222;
+   display: flex;
+   flex-direction: column;
+
+ }
+
+ .chat-header--cool__info h3 {
+   font-size: 1.088rem;
+   letter-spacing: 0.5px;
+   text-align: start;
+   font-family: 'Roboto', sans-serif;
+   font-weight: 600;
+   line-height: 1.375rem;
+ }
+
+ .chat-header--cool__info p {
+   font-size: .880rem;
+   color: #555555fb;
+   opacity: 0.9;
+   /* margin-bottom: 0.7rem; */
+   margin: 0;
+   text-align: start;
+   font-family: 'Roboto', sans-serif;
+
+   font-weight: 340;
+   letter-spacing: .05em;
+
+ }
+
+ /* Close button with hover glow */
+ .chat-header--cool__close {
+   background: none;
+   border: none;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 0rem;
+   border-radius: 50%;
+   cursor: pointer;
+   padding: .5rem;
+ }
+
+ .chat-header--cool__close:hover {
+   background-color: rgba(0, 0, 0, 0.1);
+
+ }
+
+ .chat-header--cool__close.active {
+   background-color: rgba(0, 0, 0, 0.1);
+
+ }
+
+ .ellipsis-icon {
+   color: #5a5e62;
+   padding: 0rem .07rem;
+ }
+
+ .header-modal-menu {
+   position: absolute;
+   background: #fff;
+   border: none;
+   border-radius: .75rem;
+   z-index: 100;
+   padding: 0.25rem 0rem;
+   box-shadow: 0 .25rem .5rem .125rem #72727240;
+   top: 58px;
+   right: 0;
+ }
+
+ /* Modal Menu List */
+ .modal-menu {
+   list-style: none;
+   margin: 0;
+   padding: 0;
+ }
+
+ .modal-menu li a {
+  text-decoration: none;
+  color: #333;
+  display: flex;
+  /* margin: 1em 0; */
+  font-size: .895rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 450;
+  padding: .25rem;
+  padding-inline-end: .75rem;
+  border-radius: .375rem;
+  margin: .125rem .25rem;
+  transform: scale(1);
+  align-items: center;
+  transition: .15s ease-in-out transform;
+  will-change: transform;
+  line-height: 1;
+  min-width: 13rem;
+
+}
+
+.modal-menu li a:hover,
+.modal-menu li a:focus {
+  background-color: #f4f4f5;
+}
+
+
+/* line between items */
+.mod {
+  height: .0625rem;
+  background-color: #0000001a;
+  margin: .25rem 0;
+  border-radius: .0625rem;
+}
+
+/*  modal menu icons */
+
+.modal-icons {
+  margin-inline: .5rem 1.25rem;
+  color: #707579;
+  max-width: 1.25rem;
+
+}

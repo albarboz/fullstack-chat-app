@@ -1,5 +1,5 @@
 import React from 'react'
-import { EllipsisVertical, MessageCircleMore, Mic, Search, Trash } from 'lucide-react'
+import { CheckCircle, Edit, EllipsisVertical, LockIcon, MessageCircleMore, Mic, MicOff, Search, Trash } from 'lucide-react'
 import { useChatStore } from '../../store/useChatStore.js'
 import { useSocketStore } from '../../store/useSocketStore.js'
 import { useEffect, useRef, useState } from 'react'
@@ -60,9 +60,13 @@ const NavChatHeader = () => {
       {isMenuOpen && (
         <div className="header-modal-menu" ref={menuRef}>
           <ul className='modal-menu'>
-            <li onClick={() => alert('View Profile clicked')}><a><Search />Search</a></li>
-            <li onClick={() => alert('Mute Notifications clicked')}><a><Mic />Mute Chat</a></li>
-            <li onClick={() => openChatWithUser(null)}><a><Trash />Delete Chat</a></li>
+            <li onClick={() => alert('Search clicked')}><a><Search className='modal-icons' />Search</a></li>
+            <li onClick={() => alert('Mute Notifications clicked')}><a><Edit className='modal-icons' />Edit</a></li>
+            <li onClick={() => alert(null)}><a><MicOff className='modal-icons' />Mute...</a></li>
+            <li onClick={() => alert(null)}><a><CheckCircle className='modal-icons' />Select messages</a></li>
+            <li onClick={() => alert(null)}><a><LockIcon className='modal-icons' />Block user</a></li>
+            <div className='mod'></div>
+            <li onClick={() => openChatWithUser(null)} className='delete-chat'><a><Trash className='modal-icons delete' />Delete Chat</a></li>
           </ul>
         </div>
       )}
