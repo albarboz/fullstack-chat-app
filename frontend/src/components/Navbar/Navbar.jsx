@@ -90,8 +90,12 @@ const Navbar = ({ showBack = false, onBack, searchTerm, setSearchTerm }) => {
                           ({contactRequests.length})
                         </>
                       )}
-                    </a></li>
+                    </a>
+                    </li>
                   </ul>
+                  <footer>
+                    Al-Chat Web Version 1.0
+                  </footer>
                 </div>
               )}
             </div>

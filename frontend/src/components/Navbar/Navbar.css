@@ -187,3 +187,12 @@
 .delete {
   color: red;
 }
+
+
+footer {
+  padding: .5rem 0;
+  background: var(--color-chat-hover);
+  color: #707579;
+  font-size: .8125rem;
+  text-align: center;
+}
