@@ -156,7 +156,7 @@
   line-height: 1.5;
   touch-action: manipulation;
   padding: .75rem 1rem;
-
+margin: 0;
 }
 
 .delete-chat a {
@@ -193,7 +193,7 @@
 
 
 footer {
-  padding: .5rem 0;
+  padding: .6rem 0;
   background: #f4f4f5;
   color: #707579;
   font-size: .8125rem;

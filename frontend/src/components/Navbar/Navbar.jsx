@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useRef, useEffect } from 'react';
 import { useAuthStore } from '../../store/useAuthStore.js'
-import { ArrowLeft, LogOut, User, Settings, Menu, MessageCircleMore, Search, UserPlus } from 'lucide-react';
+import { ArrowLeft, LogOut, User, Settings, Menu, MessageCircleMore, Search, UserPlus, Bug } from 'lucide-react';
 import NavChatHeader from '../NavChatHeader/NavChatHeader.jsx'
 import '../../components/Navbar/Navbar.css'
 import { useContactStore } from '../../store/useContactStore.js';
@@ -81,6 +81,7 @@ const Navbar = ({ showBack = false, onBack, searchTerm, setSearchTerm }) => {
                     <li><a href="/settings"><Settings className='modal-icons' />Settings</a></li>
                     <div className='mod'></div>
                     <li><a href="/profile"><User className='modal-icons' />Profile</a></li>
+                    <li><a href="/profile"><Bug className='modal-icons' />Report a Bug</a></li>
                     <li><a href="/logout" onClick={handleLogout}><LogOut className='modal-icons' />Logout</a></li>
                     <li><a href="/contacts/requests">
                       <UserPlus className='modal-icons' />
