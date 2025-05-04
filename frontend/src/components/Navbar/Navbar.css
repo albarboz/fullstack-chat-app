@@ -61,7 +61,6 @@
 }
 
 .back-button:hover {
-  /* box-shadow: 0 0 8px rgba(0, 0, 0, 0.15); */
   background-color: rgba(0, 0, 0, 0.1);
 
 }
@@ -149,7 +148,6 @@
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
   border-radius: .375rem;
-  /* transform: scale(1); */
   align-items: center;
   transition: .15s ease-in-out transform;
   will-change: transform;

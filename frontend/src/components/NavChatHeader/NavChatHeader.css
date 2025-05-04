@@ -154,20 +154,20 @@
   text-decoration: none;
   color: #333;
   display: flex;
-  /* margin: 1em 0; */
+  letter-spacing: 1;
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
-  font-weight: 500;
-  padding: .55rem;
-  padding-inline-end: .75rem;
+  font-weight: 400;
+  padding: .75rem 1rem;
   border-radius: .375rem;
   margin: .125rem .25rem;
-  transform: scale(1);
   align-items: center;
   transition: .15s ease-in-out transform;
   will-change: transform;
-  line-height: 1;
+  line-height: 1.5;
   min-width: 13rem;
+  touch-action: manipulation;
+
 
 }
 
