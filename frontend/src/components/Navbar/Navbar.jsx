@@ -60,7 +60,6 @@ const Navbar = ({ showBack = false, onBack, searchTerm, setSearchTerm }) => {
               <button className="back-button" onClick={onBack}>
                 <ArrowLeft size={35}  />
               </button>
-
             </div>
 
 
