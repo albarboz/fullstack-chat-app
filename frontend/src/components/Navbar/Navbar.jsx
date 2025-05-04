@@ -58,7 +58,7 @@ const Navbar = ({ showBack = false, onBack, searchTerm, setSearchTerm }) => {
           {showBack ? (
             <div className="menu-container">
               <button className="back-button" onClick={onBack}>
-                <ArrowLeft size={35} />
+                <ArrowLeft  />
               </button>
 
             </div>

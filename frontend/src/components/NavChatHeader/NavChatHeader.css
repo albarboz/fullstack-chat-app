@@ -113,7 +113,7 @@
    padding: 0rem;
    border-radius: 50%;
    cursor: pointer;
-   /* padding: .5rem; */
+   padding: .5rem;
  }
 
  .chat-header--cool__close:hover {

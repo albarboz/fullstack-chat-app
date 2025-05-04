@@ -60,6 +60,12 @@
 
 }
 
+
+.back-button svg{
+  width: 35px;
+  height: 35px;
+}
+
 .back-button:hover {
   background-color: rgba(0, 0, 0, 0.1);
 
