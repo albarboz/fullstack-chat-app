@@ -76,13 +76,13 @@ const Navbar = ({ showBack = false, onBack, searchTerm, setSearchTerm }) => {
               {isModalOpen && (
                 <div className="modal-content" ref={modalRef}>
                   <ul className="modal-menu">
-                    <li><a href="/"><MessageCircleMore className='modal-icons' />Chats</a></li>
+                    <li><a href="/"><MessageCircleMore className='modal-icons' /><span className='modal-text'>Chats</span></a></li>
                     <div className='mod'></div>
-                    <li><a href="/settings"><Settings className='modal-icons' />Settings</a></li>
+                    <li><a href="/settings"><Settings className='modal-icons' /><span className='modal-text'>Settings</span></a></li>
                     <div className='mod'></div>
-                    <li><a href="/profile"><User className='modal-icons' />Profile</a></li>
-                    <li><a href="/profile"><Bug className='modal-icons' />Report a Bug</a></li>
-                    <li><a href="/logout" onClick={handleLogout}><LogOut className='modal-icons' />Logout</a></li>
+                    <li><a href="/profile"><User className='modal-icons' /><span className='modal-text'>Contacts</span></a></li>
+                    <li><a href="/profile"><Bug className='modal-icons' /><span className='modal-text'>Report a bug</span></a></li>
+                    <li><a href="/logout" onClick={handleLogout}><LogOut className='modal-icons' /><span className='modal-text'>Logout</span></a></li>
                     <li><a href="/contacts/requests">
                       <UserPlus className='modal-icons' />
                       Requests
