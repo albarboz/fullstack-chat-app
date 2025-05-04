@@ -121,14 +121,17 @@
   background: #fff;
   border-radius: .75rem;
   z-index: 100;
-  padding: 0.25rem 0rem;
+  padding: 0.5rem 0rem;
   top: 48px;
   left: 3px;
   min-width: 16rem;
   opacity: 1;
   box-shadow: 0 .25rem .5rem .125rem #72727240;
   color: black;
+  --offset-y: calc(100% + 0.5rem);
+  padding-bottom: 0;
 }
+
 
 /* Modal Menu List */
 .modal-menu {
@@ -142,19 +145,18 @@
   letter-spacing: 1px;
   color: #333;
   display: flex;
-  /* margin: 1em 0; */
-  font-size: 1rem;
+  font-size: 1.15rem;
   font-family: 'Roboto', sans-serif;
-  font-weight: 500;
-  padding: .55rem;
-  padding-inline-end: 1.8rem;
+  font-weight: 400;
   border-radius: .375rem;
-  margin: .125rem .25rem;
   transform: scale(1);
   align-items: center;
   transition: .15s ease-in-out transform;
   will-change: transform;
-  /* line-height: 1; */
+  line-height: 1.5;
+  touch-action: manipulation;
+  padding: .75rem 1rem;
+
 }
 
 .delete-chat a {
@@ -179,9 +181,10 @@
 /*  modal menu icons */
 
 .modal-icons {
-  margin-inline: .375rem 1.125rem;
   color: #707579;
-  max-width: 1.65rem;
+  max-width: 1.5rem;
+  margin-right: 2rem;
+  margin-left: 0;
 }
 
 .delete {
@@ -191,8 +194,11 @@
 
 footer {
   padding: .5rem 0;
-  background: var(--color-chat-hover);
+  background: #f4f4f5;
   color: #707579;
   font-size: .8125rem;
   text-align: center;
+  border-radius: .75rem;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
 }
