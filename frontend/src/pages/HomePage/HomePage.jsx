@@ -9,6 +9,7 @@ import { useOsClass } from '../../hooks/useOsClass.js'
 import { useViewportHeight } from '../../hooks/useViewportHeight.js'
 
 
+
 const HomePage = () => {
   // summon responsive viewport var + OS body class
   useViewportHeight()
@@ -22,6 +23,8 @@ const HomePage = () => {
 
   console.count("[HomePage render]");
   { console.log("selectedUser:", selectedUser, " searchTerm:", searchTerm) }
+
+
 
 
   return (

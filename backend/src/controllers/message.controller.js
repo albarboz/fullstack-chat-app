@@ -125,12 +125,29 @@ export const getUsersForConvoList = async (req, res) => {
     // For each user, find the latest message between them and the logged-in user.
     const usersWithLastMessage = await Promise.all(
       contactUsers.map(async (user) => {
+        // 1) your existing “latest message in the thread” lookup
         const lastMessage = await Message.findOne({
           $or: [
             { senderId: loggedInUserId, receiverId: user._id },
             { senderId: user._id, receiverId: loggedInUserId },
           ],
         }).sort({ createdAt: -1 }); // get the latest message
+
+        // 2) NEW: aggregate the single most recent readBy entry for messages *you* sent
+        const [latestRead] = await Message.aggregate([
+          {
+            $match: {
+              senderId: loggedInUserId,
+              receiverId: user._id,
+              "readBy.userId": user._id
+            }
+          },
+          { $unwind: "$readBy" },
+          { $match: { "readBy.userId": user._id } },
+          { $sort: { "readBy.readAt": -1 } },
+          { $limit: 1 },
+          { $project: { _id: 0, readAt: "$readBy.readAt" } }
+        ]);
 
         // Convert Mongoose document to a plain object and attach lastMessage.
         return {

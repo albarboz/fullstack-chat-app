@@ -4,14 +4,24 @@ import { useChatStore } from '../../store/useChatStore.js'
 import { useSocketStore } from '../../store/useSocketStore.js'
 import { useEffect, useRef, useState } from 'react'
 import '../../components/NavChatHeader/NavChatHeader.css'
+import { formatMessageTime } from '../../lib/utils.js'
 
 const NavChatHeader = () => {
   const { selectedUser, openChatWithUser } = useChatStore()
-  const { onlineUsers } = useSocketStore()
+  const { onlineUsers, typingUsers } = useSocketStore()
   const isOnline = onlineUsers.includes(selectedUser._id)
+  const isTyping = typingUsers.includes(selectedUser._id);
+
+
+
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const menuRef = useRef(null)
   const buttonRef = useRef(null)
+
+
+
+  const lastReadAt = selectedUser.readAt;
+
 
 
   const toggleMenu = () => {
@@ -51,7 +61,16 @@ const NavChatHeader = () => {
       {/* Modal fnfo */}
       <div className="chat-header--cool__info">
         <h3>{selectedUser.fullName}</h3>
-        <p>{isOnline ? 'Online now' : 'last seen 4/9/2025'}</p>
+        <p>
+          {isTyping
+            ? 'Typing…'
+            : isOnline
+              ? 'Online now'
+              : selectedUser.readAt
+                ? `Seen at ${formatMessageTime(selectedUser.readAt)}`
+                : 'Offline'
+          }
+        </p>
       </div>
 
       {/* Modal Button */}
@@ -78,7 +97,7 @@ const NavChatHeader = () => {
           </ul>
         </div>
       )}
-      
+
     </header>
 
   )

@@ -3,6 +3,8 @@ import { useChatStore } from "../../store/useChatStore.js";
 import { Image, Paperclip, Smile, X } from "lucide-react";
 import toast from "react-hot-toast";
 // import sendIcon from "../assets/send.svg";
+import { useSocketStore } from '../../store/useSocketStore.js';
+
 
 import '../../components/MessageInput/MessageInput.css'
 
@@ -11,8 +13,24 @@ const MessageInput = () => {
   const [imagePreview, setImagePreview] = useState(null);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const fileInputRef = useRef(null);
-  const { sendChatMessage } = useChatStore();
+  const typingTimeoutRef = useRef(null); // Add this with your other refs and state
 
+
+  const { sendChatMessage, selectedUser } = useChatStore();
+  const { emitTyping, emitStopTyping } = useSocketStore();
+
+  // Typing event handler
+  const handleInputChange = (e) => {
+    setText(e.target.value);
+    if (selectedUser?._id) {
+      emitTyping(selectedUser._id);
+
+      clearTimeout(typingTimeoutRef.current);
+      typingTimeoutRef.current = setTimeout(() => {
+        emitStopTyping(selectedUser._id);
+      }, 1500);
+    }
+  };
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (!file || !file.type.startsWith("image/")) {
@@ -101,7 +119,7 @@ const MessageInput = () => {
           type="text"
           placeholder="Message..."
           value={text}
-          onChange={(e) => setText(e.target.value)}
+          onChange={handleInputChange} // Updated to use typing-aware handler
           className="message-input"
         />
 
@@ -123,7 +141,7 @@ const MessageInput = () => {
         />
 
         <div className="svg-container">
-        <svg className="svg-appendix" width="9" height="17">
+          <svg className="svg-appendix" width="9" height="17">
             <defs>
               <filter
                 x="-60%"

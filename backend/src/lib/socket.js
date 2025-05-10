@@ -30,15 +30,26 @@ io.on('connection', (socket) => {
     io.emit('getOnlineUsers', Object.keys(userSocketMap))
 
 
-    socket.on('disconnect', () => {
-        console.log('A user disconnected', socket.id)
-        delete userSocketMap[userId]
-        io.emit('getOnlineUsers', Object.keys(userSocketMap))
-    })
 
-    socket.on('message_read', ({ messageIds, readerId}) => {
+    // Typing start event
+    socket.on('typing', ({ receiverId }) => {
+        const receiverSocketId = userSocketMap[receiverId];
+        if (receiverSocketId) {
+            io.to(receiverSocketId).emit('userTyping', { userId });
+        }
+    });
+
+    // Typing stop event
+    socket.on('stopTyping', ({ receiverId }) => {
+        const receiverSocketId = userSocketMap[receiverId];
+        if (receiverSocketId) {
+            io.to(receiverSocketId).emit('userStopTyping', { userId });
+        }
+    });
+
+    // Message read
+    socket.on('message_read', ({ messageIds, readerId }) => {
         console.log(`[Socket.IO] Message(s) read by ${readerId}:`, messageIds);
-
 
 
         messageIds.forEach(messageId => {
@@ -48,6 +59,12 @@ io.on('connection', (socket) => {
                 readAt: new Date().toISOString()
             })
         })
+    })
+
+    socket.on('disconnect', () => {
+        console.log('A user disconnected', socket.id)
+        delete userSocketMap[userId]
+        io.emit('getOnlineUsers', Object.keys(userSocketMap))
     })
 })
 

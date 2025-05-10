@@ -10,6 +10,8 @@ let isConnected = false;
 export const useSocketStore = create(devtools((set, get) => ({
   socket: null,
   onlineUsers: [],
+  typingUsers: [],
+  
 
   connect: (userId) => {
     if (isConnected) {
@@ -26,7 +28,7 @@ export const useSocketStore = create(devtools((set, get) => ({
     socket.on('connect', () => {
       console.log('[SocketStore] Socket connected ✅');
       isConnected = true;
-      
+
       set({ socket });
     });
 
@@ -40,6 +42,20 @@ export const useSocketStore = create(devtools((set, get) => ({
       set({ onlineUsers: userIds });
     });
 
+
+    socket.on('userTyping', ({ userId }) => {
+      set(state => ({
+        typingUsers: [...new Set([...state.typingUsers, userId])]
+      }));
+    });
+
+    socket.on('userStopTyping', ({ userId }) => {
+      set(state => ({
+        typingUsers: state.typingUsers.filter(id => id !== userId)
+      }));
+    });
+
+
   },
 
   disconnect: () => {
@@ -49,6 +65,20 @@ export const useSocketStore = create(devtools((set, get) => ({
       socket.disconnect();
       isConnected = false;
       set({ socket: null, onlineUsers: [] });
+    }
+  },
+
+  emitTyping: (receiverId) => {
+    const socket = get().socket;
+    if (socket && socket.connected) {
+      socket.emit('typing', { receiverId });
+    }
+  },
+
+  emitStopTyping: (receiverId) => {
+    const socket = get().socket;
+    if (socket && socket.connected) {
+      socket.emit('stopTyping', { receiverId });
     }
   },
 
@@ -65,20 +95,20 @@ export const useSocketStore = create(devtools((set, get) => ({
     }
   },
 
-    // Read receipt listener
-    onMessageReadUpdate: (callback) => {
-      const socket = get().socket;
-      if (!socket || !socket.connected) return;
-      socket.on('message_read_update', callback);
-    },
-  
-    offMessageReadUpdate: () => {
-      const socket = get().socket;
-      if (socket?.connected) {
-        socket.off('message_read_update');
-      }
-    },
+  // Read receipt listener
+  onMessageReadUpdate: (callback) => {
+    const socket = get().socket;
+    if (!socket || !socket.connected) return;
+    socket.on('message_read_update', callback);
+  },
 
-  
+  offMessageReadUpdate: () => {
+    const socket = get().socket;
+    if (socket?.connected) {
+      socket.off('message_read_update');
+    }
+  },
+
+
 
 }), { name: 'SocketStore' }));

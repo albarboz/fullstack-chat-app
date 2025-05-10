@@ -1,18 +1,23 @@
-import { useChatStore } from "../../store/useChatStore.js"
+// React & core
 import { useEffect } from "react"
-// import ChatHeader from "../ChatHeader/ChatHeader.jsx"
-import MessageInput from '../MessageInput/MessageInput.jsx'
+
+// State and side-effects 
+import { useChatStore } from "../../store/useChatStore.js"
 import { useAuthStore } from "../../store/useAuthStore.js"
-import { formatMessageTime } from "../../lib/utils.js"
-import Highlight from "../Highlight.jsx"
-import '../../components/ChatContainer/ChatContainer.css'
 import { useSocketStore } from "../../store/useSocketStore.js"
+
+// Components & utilities
+import MessageInput from '../MessageInput/MessageInput.jsx'
+import Highlight from "../Highlight.jsx"
+import { formatMessageTime } from "../../lib/utils.js"
+
+// Assets & Utilities
 import DoubleCheckmark from '../../assets/double-checkmark.png';
 import SingleCheckmark from '../../assets/single-checkmark.png';
+import '../../components/ChatContainer/ChatContainer.css'
 
 const ChatContainer = ({ searchTerm }) => {
   const { messages, loadChatHistory, selectedUser, listenForIncomingMessages, stopListeningForMessages, updateMessageReadStatus } = useChatStore()
-
   const { authUser } = useAuthStore()
   const { socket, onMessageReadUpdate, offMessageReadUpdate } = useSocketStore();
 
@@ -23,7 +28,6 @@ const ChatContainer = ({ searchTerm }) => {
     listenForIncomingMessages()
     return () => stopListeningForMessages()
   }, [selectedUser._id, loadChatHistory, listenForIncomingMessages, stopListeningForMessages])
-
 
   // Emit read receipts for unread messages received by authUser
   useEffect(() => {
@@ -47,7 +51,7 @@ const ChatContainer = ({ searchTerm }) => {
     }
   }, [messages, authUser._id, socket, updateMessageReadStatus]);
 
-// Subscribe to read status updates
+  // Subscribe to read status updates
   useEffect(() => {
     const handleReadUpdate = ({ messageId, readerId, readAt }) => {
       updateMessageReadStatus(messageId, readerId, readAt);
@@ -68,11 +72,10 @@ const ChatContainer = ({ searchTerm }) => {
     )
     : messages;
 
-
-  const lastSentMessageId = [...filteredMessages]
+  const lastSentMessageId = filteredMessages
+    .slice()
     .reverse()
     .find(msg => msg.senderId === authUser._id)?._id
-
 
   const getCheckmarkStatus = (message) => {
     if (message.senderId !== authUser._id) return null; // Only show checkmarks on your own sent messages
@@ -81,16 +84,13 @@ const ChatContainer = ({ searchTerm }) => {
     const hasBeenRead = message.readBy?.some(rb => rb.userId === selectedUser._id);
 
     if (isLast) {
-      return hasBeenRead 
-        ? <img src={DoubleCheckmark} alt="Read" className="double" /> 
-        : <img src={SingleCheckmark} alt="Delivered"  className="double"/>;;  // Or replace with a single-check image if you have one
+      return hasBeenRead
+        ? <img src={DoubleCheckmark} alt="Read" className="double" />
+        : <img src={SingleCheckmark} alt="Delivered" className="double" />;;  // Or replace with a single-check image if you have one
     }
-  
-    return <img src={DoubleCheckmark} alt="Delivered"  className="double"/>;
+
+    return <img src={DoubleCheckmark} alt="Delivered" className="double" />;
   };
-
-
-
 
   return (
     <div className="message-list">
@@ -128,12 +128,12 @@ const ChatContainer = ({ searchTerm }) => {
               </div>
 
               <div className="message-meta">
-              <time>
+                <time>
                   {formatMessageTime(message.createdAt)}
-                  </time>
-                  {message.senderId === authUser._id && (
-                    <span >{getCheckmarkStatus(message)}</span>
-                  )}
+                </time>
+                {message.senderId === authUser._id && (
+                  <span >{getCheckmarkStatus(message)}</span>
+                )}
 
               </div>
 
