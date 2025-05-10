@@ -146,7 +146,12 @@
   
   /* Images inside the message */
   .chat-message>div:last-child img {
-    max-width: 220px;
+    /* max-width: 220px; */
     border-radius: 0rem;
-    margin-bottom: 0.5rem;
+    /* margin-bottom: 0.5rem; */
+    height: 18px;
+    width: 18px;
+    margin-left: 4px;
   }
+
+ 

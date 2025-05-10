@@ -2,13 +2,10 @@ import { create } from 'zustand'
 import { devtools } from "zustand/middleware";
 import { axiosInstance } from '../lib/axios.js'
 import toast from 'react-hot-toast'
-import { useSocketStore } from './useSocketStore.js' // ✅ NEW: import the correct socket store
-
-
+import { useSocketStore } from './useSocketStore.js' 
 
 export const useChatStore = create(devtools((set, get) => ({
     messages: [],
-    nextCursor: null,
     users: [],
     selectedUser: null,
     isUsersLoading: false,
@@ -29,44 +26,30 @@ export const useChatStore = create(devtools((set, get) => ({
     },
 
     openChatWithUser: (user) => {
-        set({ selectedUser: user, messages: [], nextCursor: null });
+        set({ selectedUser: user, messages: [] });
     },
 
-    loadChatHistory: async (userId, cursor = null) => {
+    loadChatHistory: async (userId) => {
         set({ isMessagesLoading: true })
 
         try {
-            const res = await axiosInstance.get(`/messages/${userId}`, {
-                params: { limit: 10, cursor }
-            })
+            const res = await axiosInstance.get(`/messages/${userId}`);
 
-            const { messages: page, nextCursor } = res.data;
-
-            set(state => ({
-                messages: cursor ? [...page, ...state.messages] : page,
-                nextCursor
-            }));
+            set({ messages: res.data.messages });
         } catch (error) {
-            toast.error(error.response.data.message);
+            toast.error(error.response?.data?.message || error.message);
         } finally {
-            set({ isMessagesLoading: false })
+            set({ isMessagesLoading: false });
         }
-
-    },
-
-    loadMoreMessages: () => {
-        const { selectedUser, nextCursor } = get();
-        if (!nextCursor) return;
-        return get().loadChatHistory(selectedUser._id, nextCursor);
     },
 
     fetchAllMessages: async () => {
         set({ isMessagesLoading: true })
         try {
-            const res = await axiosInstance.get(`/messages`) // all messages route
+            const res = await axiosInstance.get(`/messages`)
             set({ messages: res.data })
         } catch (error) {
-            toast.error(error.response.data.message);
+            toast.error(error.response?.data?.message || error.message);
         } finally {
             set({ isMessagesLoading: false })
         }
@@ -84,7 +67,7 @@ export const useChatStore = create(devtools((set, get) => ({
 
     listenForIncomingMessages: () => {
         const { selectedUser } = get()
-        const { socket, onMessage } = useSocketStore.getState() // ✅ FIXED: use new socket store
+        const { socket, onMessage } = useSocketStore.getState()
 
         if (!selectedUser || !socket?.connected) return
 
@@ -92,15 +75,27 @@ export const useChatStore = create(devtools((set, get) => ({
             const isMessageSentFromSelectedUser = newMessage.senderId === selectedUser._id
             if (!isMessageSentFromSelectedUser) return
 
-            set({
-                messages: [...get().messages, newMessage],
-            })
+            set({ messages: [...get().messages, newMessage] })
         })
     },
 
     stopListeningForMessages: () => {
-        const { offMessage } = useSocketStore.getState() // ✅ FIXED: use new socket store
+        const { offMessage } = useSocketStore.getState()
         offMessage()
     },
+
+
+    updateMessageReadStatus: (messageId, readerId, readAt) => {
+        set(state => ({
+          messages: state.messages.map(msg =>
+            msg._id === messageId
+              ? {
+                  ...msg,
+                  readBy: [...(msg.readBy || []), { userId: readerId, readAt }]
+                }
+              : msg
+          )
+        }));
+      }
 
 }), { name: 'ChatStore' }))

@@ -1,24 +1,63 @@
 import { useChatStore } from "../../store/useChatStore.js"
-import { useEffect, useRef } from "react"
+import { useEffect } from "react"
 // import ChatHeader from "../ChatHeader/ChatHeader.jsx"
 import MessageInput from '../MessageInput/MessageInput.jsx'
 import { useAuthStore } from "../../store/useAuthStore.js"
 import { formatMessageTime } from "../../lib/utils.js"
 import Highlight from "../Highlight.jsx"
 import '../../components/ChatContainer/ChatContainer.css'
-
+import { useSocketStore } from "../../store/useSocketStore.js"
+import DoubleCheckmark from '../../assets/double-checkmark.png';
+import SingleCheckmark from '../../assets/single-checkmark.png';
 
 const ChatContainer = ({ searchTerm }) => {
-  const { messages, loadChatHistory, selectedUser, listenForIncomingMessages, stopListeningForMessages } = useChatStore()
+  const { messages, loadChatHistory, selectedUser, listenForIncomingMessages, stopListeningForMessages, updateMessageReadStatus } = useChatStore()
+
   const { authUser } = useAuthStore()
+  const { socket, onMessageReadUpdate, offMessageReadUpdate } = useSocketStore();
+
 
 
   useEffect(() => {
     loadChatHistory(selectedUser._id)
     listenForIncomingMessages()
-
     return () => stopListeningForMessages()
   }, [selectedUser._id, loadChatHistory, listenForIncomingMessages, stopListeningForMessages])
+
+
+  // Emit read receipts for unread messages received by authUser
+  useEffect(() => {
+    const unreadMessages = messages.filter(
+      msg => msg.receiverId === authUser._id && !msg.readBy?.some(rb => rb.userId === authUser._id)
+    );
+
+    if (socket && unreadMessages.length > 0) {
+      const messageIds = unreadMessages.map(msg => msg._id);
+
+      // ✅ 1. Optimistically update local state
+      messageIds.forEach(messageId => {
+        updateMessageReadStatus(messageId, authUser._id, new Date().toISOString());
+      });
+
+      // ✅ 2. Emit to server
+      socket.emit('message_read', {
+        messageIds,
+        readerId: authUser._id
+      });
+    }
+  }, [messages, authUser._id, socket, updateMessageReadStatus]);
+
+// Subscribe to read status updates
+  useEffect(() => {
+    const handleReadUpdate = ({ messageId, readerId, readAt }) => {
+      updateMessageReadStatus(messageId, readerId, readAt);
+    };
+
+    onMessageReadUpdate(handleReadUpdate);
+    return () => offMessageReadUpdate();
+  }, [onMessageReadUpdate, offMessageReadUpdate, updateMessageReadStatus]);
+
+
 
 
   // Filter messages based on the search term
@@ -28,6 +67,29 @@ const ChatContainer = ({ searchTerm }) => {
       message.text.toLowerCase().includes(searchTerm.toLowerCase())
     )
     : messages;
+
+
+  const lastSentMessageId = [...filteredMessages]
+    .reverse()
+    .find(msg => msg.senderId === authUser._id)?._id
+
+
+  const getCheckmarkStatus = (message) => {
+    if (message.senderId !== authUser._id) return null; // Only show checkmarks on your own sent messages
+
+    const isLast = message._id === lastSentMessageId;
+    const hasBeenRead = message.readBy?.some(rb => rb.userId === selectedUser._id);
+
+    if (isLast) {
+      return hasBeenRead 
+        ? <img src={DoubleCheckmark} alt="Read" className="double" /> 
+        : <img src={SingleCheckmark} alt="Delivered"  className="double"/>;;  // Or replace with a single-check image if you have one
+    }
+  
+    return <img src={DoubleCheckmark} alt="Delivered"  className="double"/>;
+  };
+
+
 
 
   return (
@@ -60,18 +122,19 @@ const ChatContainer = ({ searchTerm }) => {
                   alt="Attachment"
                 />
               )} */}
-              
+
               <div className="text-content">
                 {message.text && <p><Highlight text={message.text} highlight={searchTerm} /></p>}
               </div>
 
               <div className="message-meta">
-                <time>
+              <time>
                   {formatMessageTime(message.createdAt)}
+                  </time>
                   {message.senderId === authUser._id && (
-                    <span className="checkmarks">✔️✔️</span>
+                    <span >{getCheckmarkStatus(message)}</span>
                   )}
-                </time>
+
               </div>
 
             </div>

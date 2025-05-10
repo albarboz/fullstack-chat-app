@@ -13,8 +13,6 @@ const Navbar = ({ showBack = false, onBack, searchTerm, setSearchTerm }) => {
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const { contactRequests, fetchContactRequests } = useContactStore();
 
-
-
   const { logout, authUser } = useAuthStore()
 
   const toggleModal = () => { setIsModalOpen(prev => !prev) }
@@ -54,11 +52,13 @@ const Navbar = ({ showBack = false, onBack, searchTerm, setSearchTerm }) => {
   return (
     <nav>
       <div className="container">
+
         <div className="navbar-left">
+          
           {showBack ? (
             <div className="menu-container">
               <button className="back-button" onClick={onBack}>
-                <ArrowLeft size={35}  />
+                <ArrowLeft size={35} />
               </button>
             </div>
 

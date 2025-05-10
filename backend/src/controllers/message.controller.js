@@ -9,46 +9,46 @@ import Contact from "../models/contact.model.js"
 
 export const getMessages = async (req, res) => {
   try {
-    const { id: userToChatId } = req.params
-    const { cursor, limit = 5 } = req.query
+    const { id: userToChatId } = req.params;
 
-    console.log('[getMessages] cursor=', cursor, 'limit=', limit);
-
-    const myId = req.user._id
+    const myId = req.user._id;
     const filter = {
       $or: [
         { senderId: myId, receiverId: userToChatId },
         { senderId: userToChatId, receiverId: myId }
       ]
-    }
-
-    // If a cursor (ISO timestamp) is passed, only get older messages
-    if (cursor) {
-      filter.createdAt = { $lt: new Date(cursor) }
-    }
+    };
 
     // Query sorted newest→oldest, limited to `limit`
     const messages = await Message.find(filter)
       .sort({ createdAt: -1 })
-      .limit(parseInt(limit, 10))
-      .select("text image createdAt senderId receiverId")
-      .lean()
+      .lean();
 
-    // flip to oldest→newest
-    messages.reverse()
+    // Flip to oldest→newest
+    messages.reverse();
 
-    // If we got a full “page,” use the last message’s timestamp as nextCursor
-    const nextCursor =
-      messages.length === parseInt(limit, 10)
-        ? messages[messages.length - 1].createdAt.toISOString()
-        : null;
 
-    return res.status(200).json({ messages: messages, nextCursor });
+    const updatePromises = messages.map(msg => {
+      const alreadyRead = msg.readBy?.some(rb => rb.userId.toString() === myId.toString())
+      if (!alreadyRead) {
+        return Message.updateOne(
+          { _id: msg._id },
+          { $push: { readBy: { userId: myId, readAt: new Date() } } }
+        )
+      }
+      return null
+    })
+
+    await Promise.all(updatePromises.filter(Boolean))
+
+
+
+    return res.status(200).json({ messages });
   } catch (error) {
-    console.log("Error in getMessages controller", error.message)
-    res.status(500).json({ message: "Internal Service Error" })
+    console.log("Error in getMessages controller", error.message);
+    res.status(500).json({ message: "Internal Service Error" });
   }
-}
+};
 
 export const getAllMessages = async (req, res) => {
   try {
@@ -80,7 +80,12 @@ export const sendMessage = async (req, res) => {
       imageUrl = uploadResponse.secure_url;
     }
 
-    const newMessage = new Message({ senderId, receiverId, text, image: imageUrl })
+    const newMessage = new Message({
+      senderId,
+      receiverId,
+      text,
+      image: imageUrl,
+    })
     await newMessage.save()
 
     const receiverSocketId = getReceiverSocketId(receiverId)

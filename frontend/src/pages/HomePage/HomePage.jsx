@@ -5,34 +5,23 @@ import Navbar from '../../components/Navbar/Navbar.jsx'
 import ConversationList from '../../components/ConversationList/ConversationList.jsx'
 import ChatContainer from '../../components/ChatContainer/ChatContainer.jsx'
 import '../../pages/HomePage/HomePage.css'
+import { useOsClass } from '../../hooks/useOsClass.js'
+import { useViewportHeight } from '../../hooks/useViewportHeight.js'
+
 
 const HomePage = () => {
-  const { selectedUser, clearSelectedUser } = useChatStore()
+  // summon responsive viewport var + OS body class
+  useViewportHeight()
+  useOsClass()
+
+  const selectedUser = useChatStore(state => state.selectedUser);
+  const clearSelectedUser = useChatStore(state => state.clearSelectedUser);
+
   const [searchTerm, setSearchTerm] = useState('')
 
 
-  // APPLE SPECIFIC SECTION
-  const setViewportHeight = () => {
-    document.documentElement.style.setProperty(
-      '--vh',
-      `${window.innerHeight * 0.01}px`
-    );
-  };
-
-  ['resize', 'scroll', 'orientationchange'].forEach(evt =>
-    window.addEventListener(evt, setViewportHeight)
-  );
-  setViewportHeight();
-
-  useEffect(() => {
-    const ua = navigator.userAgent || navigator.vendor || window.opera
-
-    if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
-      document.body.classList.add('is-ios')
-    } else if (navigator.platform.toUpperCase().indexOf('MAC') >= 0) {
-      document.body.classList.add('is-macos')
-    }
-  }, [])
+  console.count("[HomePage render]");
+  { console.log("selectedUser:", selectedUser, " searchTerm:", searchTerm) }
 
 
   return (
@@ -40,16 +29,20 @@ const HomePage = () => {
 
       <div className='navbar-container'>
         <Navbar
-          showBack={Boolean(selectedUser)}
+          showBack={!!selectedUser}
           onBack={clearSelectedUser}
           searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm} />
+          setSearchTerm={setSearchTerm}
+        />
       </div>
-      <div className='content-area'>
-        {selectedUser ? <ChatContainer searchTerm={searchTerm} /> : <ConversationList searchTerm={searchTerm} />}
-      </div>
+      <section className='content-area'>
+        {selectedUser
+          ? <ChatContainer searchTerm={searchTerm} />
+          : <ConversationList searchTerm={searchTerm} />
+        }
+      </section>
 
-         {/* <button className="fixed-button">
+      {/* <button className="fixed-button">
       <Link to="/contacts/find">
       Find niggas
       </Link>

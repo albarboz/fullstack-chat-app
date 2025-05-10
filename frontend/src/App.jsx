@@ -13,30 +13,49 @@ import FindContactsPage from './pages/FindContactsPage/FindContactsPage.jsx'
 
 
 const App = () => {
-  const { authUser, checkAuth, isCheckingAuth } = useAuthStore()
-  const { connect, disconnect } = useSocketStore()
+  // const { authUser, checkAuth, } = useAuthStore()
+  const { connect, disconnect } = useSocketStore.getState()
 
+  const authUser = useAuthStore((state) => state.authUser)
+  const checkAuth = useAuthStore((state) => state.checkAuth)
 
   // ✅ Call checkAuth once on mount
   useEffect(() => {
+    // console.log("[App] Checking authentication status...");
+    // console.count("[HomePage] Render");
+
     checkAuth()
-  }, [checkAuth])
+  }, [])
+
 
   // ✅ Connect/disconnect socket when authUser changes
   useEffect(() => {
     if (authUser) {
+      // console.log(`[App] Authenticated as ${authUser.fullName} (${authUser._id}). Connecting socket...`);
       connect(authUser._id)
     } else {
+      // console.log("[App] No authUser found. Disconnecting socket...");
       disconnect()
     }
   }, [authUser])
 
-  if (isCheckingAuth) return null 
+  // if (isCheckingAuth) return null 
+  // console.count("[checkAuth] called");
+
+
+  const RouteLogger = ({ name }) => {
+    useEffect(() => {
+      // console.log(`[Router] Rendering route: ${name}`);
+    }, []);
+    return null;
+  };
+
+  // console.log("authUser", authUser)
 
   return (
     <div>
       <Routes>
-        <Route path='/' element={authUser ? <HomePage /> : <Navigate to="/login" />} />
+        <Route path='/' element={authUser ? <><RouteLogger name="HomePage" /><HomePage /></> : <Navigate to="/login" />} />
         <Route path='/signup' element={!authUser ? <SignupPage /> : <Navigate to="/" />} />
         <Route path='/login' element={!authUser ? <LoginPage /> : <Navigate to="/" />} />
         <Route path='/settings' element={<SettingsPage />} />

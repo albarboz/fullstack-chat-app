@@ -3,7 +3,6 @@ import http from 'http'
 import express from 'express'
 
 const app = express()
-
 const server = http.createServer(app)
 
 const io = new Server(server, {
@@ -12,12 +11,13 @@ const io = new Server(server, {
     }
 })
 
+// Used to store online users
+const userSocketMap = {} // {userId: socketId}
+
 export function getReceiverSocketId(userId) {
     return userSocketMap[userId]
 }
 
-// Used to store online users
-const userSocketMap = {} // {userId: socketId}
 
 
 io.on('connection', (socket) => {
@@ -35,7 +35,23 @@ io.on('connection', (socket) => {
         delete userSocketMap[userId]
         io.emit('getOnlineUsers', Object.keys(userSocketMap))
     })
+
+    socket.on('message_read', ({ messageIds, readerId}) => {
+        console.log(`[Socket.IO] Message(s) read by ${readerId}:`, messageIds);
+
+
+
+        messageIds.forEach(messageId => {
+            io.emit('message_read_update', {
+                messageId,
+                readerId,
+                readAt: new Date().toISOString()
+            })
+        })
+    })
 })
+
+
 
 
 export { io, app, server }

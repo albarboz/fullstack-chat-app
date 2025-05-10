@@ -38,6 +38,8 @@ const NavChatHeader = () => {
 
   return (
     <header className="chat-header--cool">
+
+      {/* Modal avatar */}
       <div className="chat-header--cool__avatar">
         <img
           src={selectedUser.profilePic || '/avatar.png'}
@@ -45,18 +47,24 @@ const NavChatHeader = () => {
         />
         <span className={`status-indicator ${isOnline ? 'online' : 'offline'}`} />
       </div>
+
+      {/* Modal fnfo */}
       <div className="chat-header--cool__info">
         <h3>{selectedUser.fullName}</h3>
         <p>{isOnline ? 'Online now' : 'last seen 4/9/2025'}</p>
       </div>
+
+      {/* Modal Button */}
       <button
         className={`chat-header--cool__close ${isMenuOpen ? 'active' : ''}`}
         onClick={toggleMenu}
         ref={buttonRef}
         aria-label="Open Chat Menu"
       >
-        <EllipsisVertical size={24} className='ellipsis-icon' />
+        <EllipsisVertical size={27} className='ellipsis-icon' />
       </button>
+
+      {/* Modal Window */}
       {isMenuOpen && (
         <div className="header-modal-menu" ref={menuRef}>
           <ul className='modal-menu'>
@@ -70,6 +78,7 @@ const NavChatHeader = () => {
           </ul>
         </div>
       )}
+      
     </header>
 
   )
