@@ -7,11 +7,11 @@ This is a full-stack chat application with a clear separation between frontend a
 
 ```
 chat-app/
-├── frontend/                 # React-based frontend application
+├── frontend/               # React-based frontend application
 │   ├── src/
-│   │   ├── assets/          # Static assets (images, fonts, etc.)
-│   │   ├── components/      # Reusable UI components
-│   │   ├── constants/       # Application constants and configuration
+│   │   ├── assets/         # Static assets (images, fonts, etc.)
+│   │   ├── components/     # Reusable UI components
+│   │   ├── constants/      # Application constants and configuration
 │   │   ├── lib/            # Utility functions and shared logic
 │   │   ├── pages/          # Page components and routing
 │   │   ├── store/          # State management (Redux/Context)
@@ -22,14 +22,14 @@ chat-app/
 │   ├── index.html          # HTML entry point
 │   └── package.json        # Frontend dependencies
 │
-├── backend/                 # Node.js/Express backend service
+├── backend/                # Node.js/Express backend service
 │   ├── src/
 │   │   ├── controllers/    # Request handlers
 │   │   ├── models/         # Data models and schemas
 │   │   ├── routes/         # API route definitions
 │   │   ├── middleware/     # Custom middleware functions
-│   │   ├── lib/           # Utility functions and shared logic
-│   │   └── index.js       # Server entry point
+│   │   ├── lib/            # Utility functions and shared logic
+│   │   └── index.js        # Server entry point
 │   └── package.json        # Backend dependencies
 │
 └── package.json            # Root package.json for workspace management

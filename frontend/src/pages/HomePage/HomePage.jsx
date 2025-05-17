@@ -1,17 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React, {useState } from 'react'
+
+// State managemnet 
 import { useChatStore } from '../../store/useChatStore.js'
-// import { Link } from 'react-router-dom'
+
+// Hooks
+import { useViewportHeight } from '../../hooks/useViewportHeight.js'
+import { useOsClass } from '../../hooks/useOsClass.js'
+
+// Components
 import Navbar from '../../components/Navbar/Navbar.jsx'
 import ConversationList from '../../components/ConversationList/ConversationList.jsx'
 import ChatContainer from '../../components/ChatContainer/ChatContainer.jsx'
+
+// Pages
 import '../../pages/HomePage/HomePage.css'
-import { useOsClass } from '../../hooks/useOsClass.js'
-import { useViewportHeight } from '../../hooks/useViewportHeight.js'
 
 
 
 const HomePage = () => {
-  // summon responsive viewport var + OS body class
   useViewportHeight()
   useOsClass()
 
@@ -22,7 +28,7 @@ const HomePage = () => {
 
 
   console.count("[HomePage render]");
-  { console.log("selectedUser:", selectedUser, " searchTerm:", searchTerm) }
+  console.log("selectedUser:", selectedUser, " searchTerm:", searchTerm)
 
 
 

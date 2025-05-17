@@ -9,9 +9,10 @@ import Contact from "../models/contact.model.js"
 
 export const getMessages = async (req, res) => {
   try {
-    const { id: userToChatId } = req.params;
-
+    const { id: userToChatId } = req.params
+    const { limit = 20, before } = req.query
     const myId = req.user._id;
+
     const filter = {
       $or: [
         { senderId: myId, receiverId: userToChatId },
@@ -19,9 +20,15 @@ export const getMessages = async (req, res) => {
       ]
     };
 
+    if (before) {
+      filter.createdAt = { $lt: new Date(before)}
+    }
+    
+
     // Query sorted newest→oldest, limited to `limit`
     const messages = await Message.find(filter)
       .sort({ createdAt: -1 })
+      .limit(Number(limit))
       .lean();
 
     // Flip to oldest→newest
